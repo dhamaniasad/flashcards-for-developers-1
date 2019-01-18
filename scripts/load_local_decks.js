@@ -25,7 +25,7 @@ const getDeckFromRecord = record => ({
 });
 
 // Load decks data from JSON file
-const decksSeedData = require("../data_sample/decks.json");
+const decksSeedData = require("../data/decks.json");
 
 const fetchDecks = async () => {
   const results = decksSeedData;

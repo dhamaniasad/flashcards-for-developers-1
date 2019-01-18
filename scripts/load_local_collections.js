@@ -18,7 +18,7 @@ const getCollectionFromRecord = (record, index) => ({
 });
 
 // Load collections data from JSON file
-const collectionsSeedData = require("../data_sample/collections.json");
+const collectionsSeedData = require("../data/collections.json");
 
 const fetchCollections = async () => {
   const results = collectionsSeedData;

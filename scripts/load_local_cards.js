@@ -8,7 +8,7 @@ require("../database/index")();
 mongoose.set("useFindAndModify", false);
 
 // Load collections data from JSON file
-const collectionsSeedData = require("../data_sample/cards.json");
+const collectionsSeedData = require("../data/cards.json");
 
 const fetchCards = async () => {
   const results = collectionsSeedData;

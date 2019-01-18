@@ -3,7 +3,7 @@ const loadDecks = require("./load_local_decks.js");
 const loadCards = require("./load_local_cards.js");
 
 async function runImport() {
-	// This load order is important - DO NOT CHANGE
+	// This load order is important to preserve foreign key references - DO NOT CHANGE
 	await loadDecks();
 	await loadCards();
 	await loadCollections();
