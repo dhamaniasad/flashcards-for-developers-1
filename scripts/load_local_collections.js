@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const Deck = require("../server/models/Deck");
 const Collection = require("../server/models/Collection");
 const config = require("../config/index");
@@ -21,7 +20,6 @@ const getCollectionFromRecord = (record, index) => ({
 // Load collections data from JSON file
 const collectionsSeedData = require("../data_sample/collections.json");
 
-// Fetches 'Collections' records from Airtable
 const fetchCollections = async () => {
   const results = collectionsSeedData;
   return results;
@@ -31,9 +29,10 @@ const fetchCollections = async () => {
 const writeCollectionsToDatabase = async collections => {
   collections.forEach(async collection => {
     const { airtableDecks, ...rest } = collection;
+    const airtableDeckIds = airtableDecks ? airtableDecks.map(el => mongoose.Types.ObjectId(el)) : []; 
     // Converts decks from airtable ids to mongodb ids
     const decks = await Deck.find({
-      airtableId: { $in: airtableDecks },
+      _id: { $in: airtableDeckIds },
     });
 
     await Collection.findOneAndUpdate(
@@ -59,4 +58,5 @@ async function sync_collections_to_database() {
   }
 }
 
-sync_collections_to_database();
+module.exports = sync_collections_to_database;
+

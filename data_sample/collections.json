@@ -10,7 +10,10 @@
     "color": "#FFF6D7",
     "emoji": "💻",
     "order": 3,
-    "id": "5b945dc20d9bd6cbc6e67a2a"
+    "id": "5b945dc20d9bd6cbc6e67a2a",
+    "airtableDecks": [
+        "5b945d730d9bd6cbc6e66349"
+    ]
   },
   {
     "_id": "5b945dc20d9bd6cbc6e67a2c",
