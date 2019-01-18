@@ -27,20 +27,28 @@ const fetchCollections = async () => {
 
 // Creates copy of record in the database
 const writeCollectionsToDatabase = async collections => {
-  collections.forEach(async collection => {
-    const { airtableDecks, ...rest } = collection;
-    const airtableDeckIds = airtableDecks ? airtableDecks.map(el => mongoose.Types.ObjectId(el)) : []; 
+
+  for (collection of collections) {
+    const {
+      airtableDecks,
+      ...rest
+    } = collection;
+    const airtableDeckIds = airtableDecks ? airtableDecks.map(el => mongoose.Types.ObjectId(el)) : [];
     // Converts decks from airtable ids to mongodb ids
     const decks = await Deck.find({
-      _id: { $in: airtableDeckIds },
+      _id: {
+        $in: airtableDeckIds
+      },
     });
 
-    await Collection.findOneAndUpdate(
-      { airtableId: collection.airtableId },
-      { ...rest, decks: decks.map(el => el._id) },
-      { upsert: true },
-    );
-  });
+    await Collection.findOneAndUpdate({
+      airtableId: collection.airtableId
+    }, { ...rest,
+      decks: decks.map(el => el._id)
+    }, {
+      upsert: true
+    }, );
+  }
 
   return await Collection.countDocuments();
 };
@@ -59,4 +67,3 @@ async function sync_collections_to_database() {
 }
 
 module.exports = sync_collections_to_database;
-

@@ -17,15 +17,23 @@ const fetchCards = async () => {
 
 // Creates copy of record in the database
 const writeCardsToDatabase = async cards => {
-  cards.forEach(async card => {
-    const deck = (await Deck.findOne({ _id: mongoose.Types.ObjectId(card.deck) })) || {};
-    const { deckAirtableId, ...rest } = card;
-    await Card.findOneAndUpdate(
-      { airtableId: card.airtableId },
-      { ...rest, deck: deck._id },
-      { upsert: true },
-    );
-  });
+
+  for (const card of cards) {
+    const deck = (await Deck.findOne({
+      _id: mongoose.Types.ObjectId(card.deck)
+    })) || {};
+    const {
+      deckAirtableId,
+      ...rest
+    } = card;
+    await Card.findOneAndUpdate({
+      airtableId: card.airtableId
+    }, { ...rest,
+      deck: deck._id
+    }, {
+      upsert: true
+    }, );
+  }
 
   return await Card.countDocuments();
 };
