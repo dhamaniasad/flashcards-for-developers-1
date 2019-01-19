@@ -1,7 +1,9 @@
 const Sequelize = require("sequelize");
-
+const sqlite = require("sqlite3");
+const DATABASE_PATH = "data/flashcards.db";
+const db = new sqlite.Database(DATABASE_PATH);
 // Initialize sequelize ORM for SQLite
-const sequelize = new Sequelize("sqlite:../data/flashcards.db");
+const sequelize = new Sequelize(`sqlite:${DATABASE_PATH}`);
 
 module.exports = () => sequelize;
 

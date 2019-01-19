@@ -1,0 +1,14 @@
+{
+  "development": {
+    "storage": "data/flashcards.db",
+    "dialect": "sqlite"
+  },
+  "test": {
+    "storage": "data/flashcards.db",
+    "dialect": "sqlite"
+  },
+  "production": {
+    "storage": "data/flashcards.db",
+    "dialect": "sqlite"
+  }
+}

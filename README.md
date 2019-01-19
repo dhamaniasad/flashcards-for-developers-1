@@ -135,3 +135,14 @@ Interested in contributing? Contact [@nlaz](https://github.com/nlaz) for help to
 ## License
 
 This project is [MIT licensed](./LICENSE.md).
+
+
+# TODO
+
+## Database Migrations
+
+To migrate the database, run the following command
+
+```bash
+node_modules/.bin/sequelize db:migrate
+```
