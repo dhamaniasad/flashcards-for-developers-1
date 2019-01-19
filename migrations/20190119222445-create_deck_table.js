@@ -11,7 +11,9 @@ module.exports = {
       author: {
         type: Sequelize.INTEGER,
         references: {
-          model: User,
+          model: {
+            tableName: "users"
+          },
           key: "_id"
         }
       },
@@ -42,7 +44,7 @@ module.exports = {
       },
       stars: Sequelize.INTEGER,
       createdTime: Sequelize.DATE,
-      difficulty: Sequelize.ARRAY(Sequelize.STRING),
+      difficulty: Sequelize.JSON,
       upvotes: Sequelize.INTEGER,
       downvotes: Sequelize.INTEGER,
       new: Sequelize.BOOLEAN,
