@@ -1,3 +1,20 @@
+const Sequelize = require('sequelize');
+const sequelize = require("../../database/index")();
+
+const User = sequelize.define("user", {
+  name: { type: Sequelize.STRING, allowNull: false },
+  email: { type: Sequelize.STRING, allowNull: false },
+  username: { type: Sequelize.STRING, allowNull: false },
+  github_id: { type: Sequelize.STRING, allowNull: false },
+  avatar_url: Sequelize.STRING,
+  customerId: Sequelize.STRING,
+  user_plan: { type: Sequelize.STRING, allowNull: false, defaultValue: "pro_monthly" },
+  email_notifications: { type: Sequelize.BOOLEAN, defaultValue: false }
+});
+
+module.exports = User;
+
+// TODO: REMOVE
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
@@ -31,4 +48,4 @@ UserSchema.set("toJSON", {
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 
-module.exports = mongoose.model("User", UserSchema);
+// module.exports = mongoose.model("User", UserSchema);

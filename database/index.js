@@ -1,22 +1,34 @@
+const Sequelize = require("sequelize");
+
+// Initialize sequelize ORM for SQLite
+const sequelize = new Sequelize("sqlite:../data/flashcards.db");
+
+module.exports = () => sequelize;
+
+// TODO: Remove
+// Mongoose code
 const mongoose = require("mongoose");
 const config = require("../config/index");
 
-module.exports = () => {
-  mongoose.Promise = global.Promise;
+// module.exports = () => {
 
-  if (!config.database.uri) {
-  	console.warn("DATABASE_URI environment variable not set.\nPlease set DATABASE_URI environment variable to run flashcards-for-developers");
-  	process.exit();
-  }
+//   return sequelize;
 
-  mongoose.connect(
-    config.database.uri,
-    { useNewUrlParser: true },
-  );
+//   mongoose.Promise = global.Promise;
 
-  const database = mongoose.connection;
+//   if (!config.database.uri) {
+//   	console.warn("DATABASE_URI environment variable not set.\nPlease set DATABASE_URI environment variable to run flashcards-for-developers");
+//   	process.exit();
+//   }
 
-  database.on("error", console.error.bind(console, "MongoDB connection error"));
+//   mongoose.connect(
+//     config.database.uri,
+//     { useNewUrlParser: true },
+//   );
 
-  return database;
-};
+//   const database = mongoose.connection;
+
+//   database.on("error", console.error.bind(console, "MongoDB connection error"));
+
+//   return database;
+// };
