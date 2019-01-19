@@ -86,13 +86,47 @@ The database uses Airtable to manage our content. We have three records that we 
 - `sync_collections.js`
 - `sync_decks.js`
 
-Running these scripts will fetch the data from Airtable and **OVERWRITE** the records in the database. The database can changed through environment variables. The default environment is `development`.
+Running these scripts will fetch the data from Airtable and **OVERWRITE** the records in the database. The database can be changed through environment variables. The default environment is `development`.
 
 **Example:**
 
 ```bash
 node scripts/sync_cards.js
 ```
+
+## Syncing with local JSON files
+
+You can also sync the database with content from JSON files. The sample syntax for the JSON files is shown in the `data_sample` folder.
+
+**Usage:**
+
+First put your JSON files into the `data` folder. The files will be ignored by Git. Then run the script below.
+
+```bash
+node scripts/seed_db_locally.js
+```
+
+Note that running the script will **OVERWRITE** the records in the database. The database can be changed through environment variables. The default environment is `development`.
+
+## Data Schema
+
+### Hierarchy
+- Collections
+	- Decks
+		- Cards
+
+Please refer to the `data_sample` directory for schema reference. 
+
+### Relationships
+
+#### Collections
+Collections hold references to decks that belong to the collection in an key `decks` which is an array. The items in the array are of type `mongoose.Types.ObjectId`.
+
+#### Decks
+Cards hold a reference to the deck they belong to in the key `deck` of type `mongoose.Types.ObjectId`.
+
+#### Cards
+Cards hold a reference to the deck they belong to in the key `deck` of type `mongoose.Types.ObjectId`.
 
 ## Contributing
 

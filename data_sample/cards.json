@@ -1,0 +1,71 @@
+[{
+    "_id": "5b945db50d9bd6cbc6e66948",
+    "airtableId": "rec0I9HzRyW9VqU15",
+    "updatedAt": "2019-01-14T04:12:44.543Z",
+    "deck": "5b945d730d9bd6cbc6e66349",
+    "back": "* Immutability improves performance. It eliminates planning for the object's future changes.\n* Immutability reduces memory use. It makes object references instead of cloning the whole object.\n* Immutability provides thread-safety. Multiple threads can reference the same object without interfering with one other.",
+    "front": "What are the advantages of immutability?",
+    "__v": 0,
+    "createdAt": "2018-09-08T23:39:33.222Z",
+    "id": "5b945db50d9bd6cbc6e66948"
+}, {
+    "_id": "5b945db50d9bd6cbc6e66ca2",
+    "airtableId": "rec6MI28wBnK6FGmU",
+    "updatedAt": "2019-01-14T04:12:44.578Z",
+    "deck": "5b945d730d9bd6cbc6e66349",
+    "back": "* Promises are slightly more complex code (debatable).\n* Browser-support for promises might not be universal.",
+    "front": "What are the disadvantages of using Promises instead of callbacks?",
+    "__v": 0,
+    "createdAt": "2018-09-08T23:39:33.407Z",
+    "id": "5b945db50d9bd6cbc6e66ca2"
+}, {
+    "_id": "5b945db50d9bd6cbc6e66ccc",
+    "airtableId": "recB07xDP3qwYpZn4",
+    "updatedAt": "2019-01-14T04:12:44.558Z",
+    "deck": "5b945d730d9bd6cbc6e66349",
+    "back": "If your code uses a few libraries that both extend the `Array.prototype` by adding the same `contains` method, the implementations will overwrite each other and your code might break in unexpected ways.",
+    "front": "Why is extending built-in JavaScript objects not a good idea?",
+    "__v": 0,
+    "createdAt": "2018-09-08T23:39:33.408Z",
+    "id": "5b945db50d9bd6cbc6e66ccc"
+}, {
+    "_id": "5b945db50d9bd6cbc6e66cd0",
+    "airtableId": "recCosWkvzHGBTe1Z",
+    "updatedAt": "2019-01-14T04:12:44.559Z",
+    "deck": "5b945d730d9bd6cbc6e66349",
+    "back": "JSONP (JSON with Padding) is a method used to bypass the cross-domain policies in browsers because Ajax requests from the current page to a cross-origin domain is not allowed. \n\nJSONP works by making a request to a cross-origin domain via a `<script>` tag and usually with a `callback` query parameter.",
+    "front": "What is JSONP?",
+    "__v": 0,
+    "createdAt": "2018-09-08T23:39:33.409Z",
+    "id": "5b945db50d9bd6cbc6e66cd0"
+}, {
+    "_id": "5b945db50d9bd6cbc6e66cd5",
+    "airtableId": "rec8JQ1ZiUVRmUqtL",
+    "updatedAt": "2019-01-14T04:12:44.579Z",
+    "deck": "5b945d730d9bd6cbc6e66349",
+    "back": "A mutable object can be changed after it's created, while an immutable object cannot be changed.",
+    "front": "What is the difference between mutable and immutable objects?",
+    "__v": 0,
+    "createdAt": "2018-09-08T23:39:33.408Z",
+    "id": "5b945db50d9bd6cbc6e66cd5"
+}, {
+    "_id": "5b945db50d9bd6cbc6e66cfc",
+    "airtableId": "recA4cIRVZLcFeEYt",
+    "updatedAt": "2019-01-14T04:12:44.545Z",
+    "deck": "5b945d730d9bd6cbc6e66349",
+    "back": "The same-origin policy prevents JavaScript from making requests across domain boundaries. \n\nThis policy prevents a malicious script on one page from obtaining access to sensitive data on another web page.",
+    "front": "What is the same-origin policy?",
+    "__v": 0,
+    "createdAt": "2018-09-08T23:39:33.408Z",
+    "id": "5b945db50d9bd6cbc6e66cfc"
+}, {
+    "_id": "5b945db50d9bd6cbc6e66d40",
+    "airtableId": "recBU7CWBQdHhb1RW",
+    "updatedAt": "2019-01-14T04:12:44.558Z",
+    "deck": "5b945d730d9bd6cbc6e66349",
+    "back": "`var` variables are scoped to the function in which they are created, or if created outside of any function, to the global object. \n\n`let` and `const` variables are _block scoped_, meaning they are only accessible within the nearest set of curly braces (function, if-else block, or for-loop).",
+    "front": "What are the differences between variables created using `let`, `var` or `const`?",
+    "__v": 0,
+    "createdAt": "2018-09-08T23:39:33.408Z",
+    "id": "5b945db50d9bd6cbc6e66d40"
+}]
