@@ -1,3 +1,27 @@
+const Sequelize = require('sequelize');
+const sequelize = require("../../database/index")();
+const User = require("./User.js")
+
+const Deck = sequelize.define("decks", {
+  _id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+  author: { type: Sequelize.INTEGER, references: { model: User, key: "_id" } },
+  status: { type: Sequelize.STRING, defaultValue: "public", allowNull: false, validate: {isIn: [["public", "private"]]} },
+  name: { type: Sequelize.STRING, allowNull: false },
+  type: { type: Sequelize.STRING, allowNull: false, defaultValue: "Self graded" },
+  source: { type: Sequelize.STRING },
+  description: { type: Sequelize.STRING },
+  stars: Sequelize.INTEGER,
+  createdTime: Sequelize.DATE,
+  difficulty: Sequelize.ARRAY(Sequelize.STRING),
+  upvotes: Sequelize.INTEGER,
+  downvotes: Sequelize.INTEGER,
+  new: Sequelize.BOOLEAN,
+  pro: { type: Sequelize.BOOLEAN }
+});
+
+module.exports = Deck;
+
+// TODO: REMOVE
 const mongoose = require("mongoose");
 
 const DeckSchema = new mongoose.Schema(
@@ -28,4 +52,4 @@ DeckSchema.set("toJSON", {
 });
 
 mongoose.set("useCreateIndex", true);
-module.exports = mongoose.model("Deck", DeckSchema);
+// module.exports = mongoose.model("Deck", DeckSchema);
