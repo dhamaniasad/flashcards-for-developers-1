@@ -7,8 +7,8 @@ Using **flashcards for teachers** makes it possible to manage your classes with 
 Clone this project and update your path:
 
 ```sh
-$ git clone https://github.com/t-cool/flashcards-for-classes
-$ cd flashcards-for-classes
+$ git clone https://github.com/t-cool/flashcards-for-teachers
+$ cd flashcards-for-teachers
 ```
 
 Install dependencies:
