@@ -64,6 +64,14 @@ export const registerGithubUser = profile => {
   return axios.post("/auth/github/register", { ...profile });
 };
 
+export const registerUser = profile => {
+  return axios.post("/auth/register", { ...profile });
+};
+
+export const loginUser = profile => {
+  return axios.post("/auth/login", { ...profile });
+}
+
 // Current user related endpoints
 export const submitPayment = ({ description, amount, source, currency }) => {
   return authAxios.post("/users/payments", { description, amount, source, currency });

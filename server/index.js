@@ -8,6 +8,7 @@ const compression = require("compression");
 const routes = require("./routes");
 const paths = require("../config/paths");
 const config = require("../config/index");
+const passport = require("./utils/auth.js");
 
 require("../database/index")();
 
@@ -19,6 +20,8 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(forceDomain({ hostname: config.hostname, protocol: "https" }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", function(req, res) {
   res.sendFile(paths.appEntry);

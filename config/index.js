@@ -7,7 +7,7 @@ module.exports = {
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
   },
-  sessionSecret: process.env.SESSION_SECRET || "",
+  sessionSecret: process.env.SESSION_SECRET || "SECREYKEY",
   githubOAuthClientId: process.env.REACT_APP_GITHUB_OAUTH_CLIENT_ID || "",
   githubOAuthRedirectURI: process.env.REACT_APP_GITHUB_OAUTH_REDIRECT_URI || "",
   githubOAuthClientSecret: process.env.GITHUB_OAUTH_CLIENT_SECRET || "",

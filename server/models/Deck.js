@@ -15,7 +15,9 @@ const Deck = sequelize.define("decks", {
   upvotes: Sequelize.INTEGER,
   downvotes: Sequelize.INTEGER,
   new: Sequelize.BOOLEAN,
-  pro: { type: Sequelize.BOOLEAN }
+  pro: { type: Sequelize.BOOLEAN },
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE
 });
 
 module.exports = Deck;

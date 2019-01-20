@@ -8,6 +8,7 @@ import isAuthenticated from "./utils/isAuthenticated";
 import isProMember from "./utils/isProMember";
 import Octicon from "../components/Octicon";
 import LoginModal from "./auth/LoginModal";
+import SignupFormModal from "./auth/SignupFormModal";
 
 const LogoutTooltip = ({ user }) => (
   <div className="tooltip-content">
@@ -61,13 +62,16 @@ class Header extends Component {
     showModal: false,
     content: [],
     isLoading: true,
+    showSignupModal: false
   };
 
-  onOpenModal = () => this.setState({ showModal: true });
+  onOpenModal = (type) => {
+    type === "signup" ? this.setState({ showSignupModal: true, showModal: false }) : this.setState({ showModal: true, showSignupModal: false });
+  }
 
-  onCloseModal = () => {
+  onCloseModal = (type) => {
     analytics.logLoginAction("User exited login modal");
-    this.setState({ showModal: false });
+    type === "signup" ? this.setState({ showSignupModal: false }) : this.setState({ showModal: false });
   };
 
   render() {
@@ -77,7 +81,10 @@ class Header extends Component {
 
     return (
       <div className="header">
-        <LoginModal isOpen={this.state.showModal} onClose={this.onCloseModal} />
+      {this.state.showSignupModal ? (
+        <SignupFormModal profile={{}} onClose={() => this.onCloseModal("signup")} />
+      ) : ""} 
+      <LoginModal isOpen={this.state.showModal} onClose={this.onCloseModal} />
         <div className="container container--full d-flex justify-content-between align-items-center py-2 w-100">
           <div className="d-flex align-items-center">
             {!isHomePage && (
@@ -183,7 +190,7 @@ class Header extends Component {
                       className="btn btn-sm btn-dark d-flex px-3 py-2"
                       onClick={() => {
                         analytics.logLoginAction("User clicked 'Signup' button");
-                        this.onOpenModal();
+                        this.onOpenModal("signup");
                       }}
                     >
                       <small className="font-weight-bold">SIGN UP</small>

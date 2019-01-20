@@ -16,7 +16,7 @@ const ERRORS = { REQUIRED: "Required", INVALID: "Invalid" };
 
 class SignupFormModal extends Component {
   state = {
-    profile: { email: "", name: "", username: "", email_notification: true },
+    profile: { email: "", name: "", username: "", email_notification: true, password: "" },
     errors: { email: undefined, name: undefined, username: undefined, form: undefined },
   };
 
@@ -57,7 +57,7 @@ class SignupFormModal extends Component {
           ...errors,
           username: this.validateUsername(username || ""),
           email: this.validateEmail(email || ""),
-          name: this.validateName(name || ""),
+          name: this.validateName(name || "")
         },
       },
       () => this.signupUser(),
@@ -68,7 +68,7 @@ class SignupFormModal extends Component {
     const { errors } = this.state;
     if (!errors.email && !errors.name && !errors.username) {
       api
-        .registerGithubUser(this.state.profile)
+        .registerUser(this.state.profile)
         .then(response => {
           analytics.logLoginAction("User signed up");
           const token = response.headers.authorization.split(" ")[1];
@@ -172,7 +172,7 @@ class SignupFormModal extends Component {
                   value={profile.username || ""}
                 />
               </div>
-              <div className="form-group mb-2">
+              <div className="form-group">
                 <div className="d-flex justify-content-between align-items-center mb-1">
                   <label className="small font-weight-bold m-0  " style={{ opacity: 0.85 }}>
                     Enter your email address
@@ -190,6 +190,26 @@ class SignupFormModal extends Component {
                   placeholder="you@your-domain.com"
                   onChange={this.onChange}
                   value={profile.email || ""}
+                />
+              </div>
+              <div className="form-group mb-2">
+                <div className="d-flex justify-content-between align-items-center mb-1">
+                  <label className="small font-weight-bold m-0  " style={{ opacity: 0.85 }}>
+                    Choose a password
+                  </label>
+                  {errors.password && (
+                    <small className="text-danger text-uppercase ml-2 shake--error">
+                      {errors.password}
+                    </small>
+                  )}
+                </div>
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control form-control-sm"
+                  placeholder="•••••••••••••"
+                  onChange={this.onChange}
+                  value={profile.password || ""}
                 />
               </div>
               <div className="d-flex align-items-center mb-2">

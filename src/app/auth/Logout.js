@@ -6,10 +6,11 @@ class Logout extends React.Component {
   componentWillMount() {
     cookie.remove("token");
     cookie.remove("user");
+    window.location = "/";
   }
 
   render() {
-    return <Redirect to="/" />;
+    return "";
   }
 }
 

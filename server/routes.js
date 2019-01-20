@@ -37,6 +37,8 @@ router.delete("/api/cards/:cardId", isAuthenticated, CardsController.deleteCard)
 // Authentication related endpoints
 router.post("/auth/github/login", UsersController.getGithubUser);
 router.post("/auth/github/register", UsersController.createGithubUser);
+router.post("/auth/register", UsersController.createUser);
+router.post("/auth/login", UsersController.loginUser);
 
 // Current user related endpoints
 // Refactor endpoints from '/users' to '/self'

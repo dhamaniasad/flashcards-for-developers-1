@@ -435,7 +435,7 @@ a[disabled] {
 @media (min-width: 576px) {
   .comingSoonModal,
   .loginModal {
-    top: 200px;
+    /*top: 200px;*/
     bottom: auto;
   }
   .loginModal-button {

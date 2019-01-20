@@ -18,6 +18,8 @@ const GITHUB_USER_ROUTE = "https://api.github.com/user";
 const MAILCHIMP_ROUTE = "https://us17.api.mailchimp.com";
 const MEMBERSHIP_LIST = "6aa2bb18b4";
 const SUBSCRIPTION_PLAN = "pro_monthly";
+const registerUser = require("../utils/registerUser");
+const loginUser = require("../utils/loginUser");
 
 const stripe = Stripe(config.stripePrivateKey);
 
@@ -99,6 +101,57 @@ module.exports.createGithubUser = async (req, res, next) => {
 
     res.set("Authorization", `Bearer ${token}`);
     res.send(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.createUser = async (req, res, next) => {
+  try {
+    const { email, name, username, password } = req.body;
+
+    await Joi.validate(req.body, userSchemas.createUser);
+
+    const user = registerUser(name, email, username, password);
+
+    const token = jwt.sign(
+      { id: user._id, username: user.username, name: user.name },
+      config.sessionSecret
+    );
+
+    res.set("Authorization", `Bearer ${token}`);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.loginUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    await Joi.validate(req.body, userSchemas.loginUser);
+
+    const user = await loginUser(email, password);
+
+    if (!user) {
+      return res.status(403).json({
+        message: "User not found. Please provide required fields.",
+        profile: {
+          email: user.email,
+          username: user.username,
+        },
+      });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email, name: user.name },
+      config.sessionSecret,
+    );
+
+    res.set("Authorization", `Bearer ${token}`);
+    res.send(user);
+
   } catch (error) {
     next(error);
   }

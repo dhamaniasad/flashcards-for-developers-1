@@ -27,6 +27,24 @@ module.exports = {
       .max(15),
     email_notification: Joi.boolean(),
   },
+  createUser: {
+    email: Joi.string()
+      .email()
+      .required(),
+    name: Joi.string().required(),
+    username: Joi.string()
+      .alphanum()
+      .min(4)
+      .max(15),
+    email_notification: Joi.boolean(),
+    password: Joi.string().required()
+  },
+  loginUser: {
+    email: Joi.string()
+      .email()
+      .required(),
+    password: Joi.string().required()
+  },
   addPinnedDecks: {
     decks: Joi.array()
       .items(Joi.objectId())

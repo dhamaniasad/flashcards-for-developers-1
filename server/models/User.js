@@ -10,7 +10,10 @@ const User = sequelize.define("users", {
   avatar_url: Sequelize.STRING,
   customerId: Sequelize.STRING,
   user_plan: { type: Sequelize.STRING, allowNull: false, defaultValue: "pro_monthly" },
-  email_notifications: { type: Sequelize.BOOLEAN, defaultValue: false }
+  email_notifications: { type: Sequelize.BOOLEAN, defaultValue: false },
+  password: { type: Sequelize.STRING, allowNull: false },
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE
 });
 
 module.exports = User;
