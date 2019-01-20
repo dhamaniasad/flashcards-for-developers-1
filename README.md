@@ -1,6 +1,6 @@
 # flashcards for teachers
 
-Using **flashcards for teachers** makes it possible to manage your classes with flashcards.  You can check your students understanding by checking their progress of flashcards.  
+Using **flashcards for teachers** makes it possible to manage your classes with flashcards.  You can check your students understanding by checking the progress of their flashcards.
 
 ## Installing
 
