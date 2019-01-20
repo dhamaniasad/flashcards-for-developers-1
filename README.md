@@ -69,7 +69,7 @@ Cards hold a reference to the deck they belong to in the key `deck` of type `mon
 
 ## Credit
 
-- This repository is made from [nlaz](https://github.com/nlaz)'s[flashcards-for-developers](https://github.com/nlaz/flashcards-for-developers). 
+- This repository is made from nlaz's[flashcards-for-developers](https://github.com/nlaz/flashcards-for-developers). 
 
 - [Asad Dhamani](https://github.com/dhamaniasad) 
 customized [flashcards-for-developers](https://github.com/nlaz/flashcards-for-developers) and make this English flashcards version. I really appreciate his cooperation for this work.
