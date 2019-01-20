@@ -2,11 +2,11 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 module.exports = {
-  user: Joi.objectId().required(),
+  user: Joi.number().required(),
   getDeckProgress: {
-    user: Joi.objectId().required(),
+    user: Joi.number().required(),
     params: {
-      deckId: Joi.objectId().required(),
+      deckId: Joi.number().required(),
     },
   },
   addStudyProgress: Joi.array()

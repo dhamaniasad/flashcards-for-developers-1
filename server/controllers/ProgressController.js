@@ -76,9 +76,12 @@ module.exports.getDeckProgress = async (req, res, next) => {
     await Joi.validate(req.params, progressSchemas.getDeckProgress.params);
 
     const deckProgress = await DeckProgress.findOne({
-      deck: deckId,
-      user: req.user,
-    }).populate("cards");
+      where: {
+        deck: deckId,
+        user: req.user,
+      }
+    })
+    // .populate("cards");
 
     res.send(deckProgress);
   } catch (error) {

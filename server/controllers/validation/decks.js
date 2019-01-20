@@ -11,7 +11,7 @@ module.exports = {
     description: Joi.string().allow(""),
   },
   getDeckParams: {
-    deckId: Joi.objectId().required(),
+    deckId: Joi.number().required(),
   },
   updateDeck: {
     name: Joi.string().required(),
