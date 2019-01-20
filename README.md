@@ -1,6 +1,6 @@
-# flashcards for classes
+# flashcards for teachers
 
-**flashcards for classes** is the fork of [flashcards-for-developers](https://github.com/nlaz/flashcards-for-developers) that teachers can use to manage the classes with flashcards.
+Using **flashcards for teachers** makes it possible to manage your classes with flashcards.  You can check your students understanding by checking their progress of flashcards.  
 
 ## Installing
 
