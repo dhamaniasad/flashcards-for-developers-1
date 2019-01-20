@@ -29,7 +29,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Syncing with local JSON files
 
-You can also sync the database with content from JSON files. The sample syntax for the JSON files is shown in the `data_sample` folder.
+You can also sync the database with content from JSON files. The sample syntax for the JSON files is shown in the `data` folder.
 
 **Usage:**
 
