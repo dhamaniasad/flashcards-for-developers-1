@@ -35,7 +35,7 @@ module.exports.createDeck = async (req, res, next) => {
     await Joi.validate(req.body, deckSchemas.createDeck);
     await Joi.validate(user.user_plan, deckSchemas.proUser);
 
-    const deck = await Deck.create({ name, description, author: req.user, status: "private" });
+    const deck = await Deck.create({ name, description, status: "private", user: user._id });
 
     res.send(deck);
   } catch (error) {

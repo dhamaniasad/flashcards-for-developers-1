@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(forceDomain({ hostname: config.hostname, protocol: "https" }));
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 app.get("/", function(req, res) {
   res.sendFile(paths.appEntry);

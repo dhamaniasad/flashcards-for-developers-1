@@ -14,23 +14,27 @@ function isAuthenticated(req, res, next) {
 
   token = token.replace("Bearer ", "");
 
-  return jwt.verify(token, config.sessionSecret, (err, user) => {
+  return jwt.verify(token, config.sessionSecret, async function (err, user) {
     if (err) {
       return res.status(401).json({
         message: "Invalid authentication. Please use a valid access token to make requests",
       });
     }
 
-    User.findOne({ _id: user.id }).then(user => {
+    try {
+      user = await User.findOne({ where: {_id: user.id } });
+
       if (!user) {
         return res.status(401).json({
           message: "Invalid authentication. Please use a valid access token to make requests",
         });
       }
 
-      req.user = user.id;
+      req.user = user._id;
       return next();
-    });
+    } catch (err) {
+        console.error(err);
+    }
   });
 }
 
