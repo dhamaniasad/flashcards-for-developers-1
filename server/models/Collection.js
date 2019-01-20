@@ -1,3 +1,23 @@
+const Sequelize = require('sequelize');
+const sequelize = require("../../database/index")();
+
+const Collection = sequelize.define("collections", {
+  _id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: Sequelize.STRING, allowNull: false },
+  description: { type: Sequelize.STRING },
+  emoji: { type: Sequelize.STRING },
+  color: { type: Sequelize.STRING },
+  order: Sequelize.INTEGER,
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE
+});
+
+module.exports = Collection;
+
+
+
+
+// TODO: REMOVE
 const mongoose = require("mongoose");
 
 const CollectionSchema = new mongoose.Schema(
@@ -20,4 +40,4 @@ CollectionSchema.set("toJSON", {
 });
 
 mongoose.set("useCreateIndex", true);
-module.exports = mongoose.model("Collection", CollectionSchema);
+// module.exports = mongoose.model("Collection", CollectionSchema);
