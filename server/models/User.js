@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
   customerId: { type: String, select: false },
   user_plan: { type: String, enum: ["free", "pro_monthly"], default: "free" },
   email_notification: { type: Boolean },
-
+  // TODO: implement in sqlite
   // Extensions of the user model
   saved_decks: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Deck" }],

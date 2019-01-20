@@ -30,10 +30,10 @@ class OverviewSection extends Component {
               <div className="deck-row row">
                 {pinnedDecks.slice(0, 4).map(item => (
                   <DeckItem
-                    key={item.id}
+                    key={item._id}
                     deck={item}
-                    isPinned={this.isPinned(item.id)}
-                    deckProgress={this.getDeckProgress(item.id)}
+                    isPinned={this.isPinned(item._id)}
+                    deckProgress={this.getDeckProgress(item._id)}
                     onTogglePin={this.props.onTogglePin}
                   />
                 ))}
@@ -68,10 +68,10 @@ class OverviewSection extends Component {
               <div className="deck-row row">
                 {decks.slice(0, 4).map(item => (
                   <DeckItem
-                    key={item.id}
+                    key={item._id}
                     deck={item}
-                    isPinned={this.isPinned(item.id)}
-                    deckProgress={this.getDeckProgress(item.id)}
+                    isPinned={this.isPinned(item._id)}
+                    deckProgress={this.getDeckProgress(item._id)}
                     onTogglePin={this.props.onTogglePin}
                   />
                 ))}

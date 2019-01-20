@@ -5,7 +5,7 @@ import Octicon from "../../components/Octicon";
 import DeckItem from "../home/DeckItem";
 
 class DecksSection extends Component {
-  isPinned = id => this.props.pinnedDecks.find(el => el.id === id);
+  isPinned = id => this.props.pinnedDecks.find(el => el._id === id);
   getDeckProgress = id => this.props.studyProgress.find(el => el.deck === id);
 
   render() {
@@ -28,8 +28,8 @@ class DecksSection extends Component {
               <DeckItem
                 key={item._id}
                 deck={item}
-                isPinned={this.isPinned(item.id)}
-                deckProgress={this.getDeckProgress(item.id)}
+                isPinned={this.isPinned(item._id)}
+                deckProgress={this.getDeckProgress(item._id)}
                 onTogglePin={this.props.onTogglePin}
               />
             ))}

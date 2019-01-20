@@ -1,3 +1,20 @@
+const Sequelize = require('sequelize');
+const sequelize = require("../../database/index")();
+
+const Card = sequelize.define("cards", {
+  _id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+  deck: { type: Sequelize.INTEGER, references: { model: { tableName: "decks" }, key: "_id" } },
+  author: { type: Sequelize.INTEGER, references: { model: { tableName: "users" }, key: "_id" } },
+  front: { type: Sequelize.TEXT, allowNull: false },
+  back: { type: Sequelize.TEXT },
+  createdAt: Sequelize.DATE,
+  updatedAt: Sequelize.DATE
+});
+
+module.exports = Card;
+
+
+
 
 // TODO: REMOVE
 const mongoose = require("mongoose");
@@ -20,4 +37,4 @@ CardSchema.set("toJSON", {
 });
 
 mongoose.set("useCreateIndex", true);
-module.exports = mongoose.model("Card", CardSchema);
+// module.exports = mongoose.model("Card", CardSchema);
