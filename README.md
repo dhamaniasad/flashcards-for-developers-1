@@ -19,7 +19,13 @@ $ yarn install
 
 ## Usage
 
-start the app:
+start the backend server:
+
+```sh
+$ yarn server
+```
+
+Open a Terminal in another window and start the frontend server:
 
 ```sh
 $ yarn web
