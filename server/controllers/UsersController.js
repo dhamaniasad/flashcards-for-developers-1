@@ -268,7 +268,7 @@ module.exports.getStudySessions = async (req, res, next) => {
 
 module.exports.getProfile = async (req, res, next) => {
   try {
-    const user = await User.findOne({ _id: req.user });
+    const user = await User.findOne({ where: { _id: req.user } });
 
     res.send(user);
   } catch (error) {
@@ -309,11 +309,11 @@ module.exports.deleteProfile = async (req, res, next) => {
 module.exports.getUserProfile = async (req, res, next) => {
   try {
     const { username } = req.params;
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ where: { username } });
     const profile = {
-      avatar_url: user.avatar_url,
+      avatar_url: undefined,
       name: user.name,
-      id: String(user._id),
+      id: user._id,
       username: user.username,
     };
 
@@ -345,11 +345,12 @@ module.exports.getUserPinnedDecks = async (req, res, next) => {
   try {
     const { username } = req.params;
 
-    const user = await User.findOne({ username })
-      .select("+saved_decks")
-      .populate("saved_decks");
+    const user = await User.findOne({ where: { username } })
 
-    res.send(user.saved_decks);
+    // TODO: Fix
+    const saved_decks = await Deck.findAll({ where: { author: user._id } });
+
+    res.send(saved_decks);
   } catch (error) {
     next(error);
   }

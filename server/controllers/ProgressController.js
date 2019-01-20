@@ -23,8 +23,10 @@ module.exports.getUserStudyProgress = async (req, res, next) => {
   try {
     const { username } = req.params;
 
-    const user = await User.findOne({ username });
-    const deckProgress = await DeckProgress.find({ user: user._id }).populate("cards");
+    const user = await User.findOne({ where: { username } });
+    // TODO: FIx
+    // const deckProgress = await DeckProgress.find({ user: user._id }).populate("cards");
+    const deckProgress = [];
 
     res.send(deckProgress);
   } catch (error) {

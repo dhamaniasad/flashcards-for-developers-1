@@ -35,7 +35,7 @@ module.exports.createDeck = async (req, res, next) => {
     await Joi.validate(req.body, deckSchemas.createDeck);
     await Joi.validate(user.user_plan, deckSchemas.proUser);
 
-    const deck = await Deck.create({ name, description, status: "private", user: user._id });
+    const deck = await Deck.create({ name, description, status: "private", author: user._id });
 
     res.send(deck);
   } catch (error) {
@@ -100,11 +100,11 @@ module.exports.getDecksForUser = async (req, res, next) => {
     const { username } = req.params;
     let decks;
 
-    const user = await User.findOne({ username });
-    if (req.user !== user._id.toString()) {
-      decks = await Deck.find({ author: user._id, status: { $ne: "private" } });
+    const user = await User.findOne({ where: { username }});
+    if (req.user !== user._id) {
+      decks = await Deck.findAll({ where: { author: user._id, status: { $ne: "private" } } });
     } else {
-      decks = await Deck.find({ author: user._id });
+      decks = await Deck.findAll({ where: { author: user._id } });
     }
 
     res.send(decks);

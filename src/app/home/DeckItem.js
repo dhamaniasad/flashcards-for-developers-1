@@ -44,7 +44,7 @@ class DeckItem extends Component {
 
         <Link
           onClick={this.onClick}
-          to={`/decks/${this.props.deck.id}`}
+          to={`/decks/${this.props.deck._id}`}
           className="border border-dark bg-white rounded d-flex flex-column justify-content-between text-dark mb-3 p-4 w-100 position-relative"
           style={{ fontSize: "14px" }}
         >

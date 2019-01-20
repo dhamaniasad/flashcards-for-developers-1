@@ -6,9 +6,9 @@ module.exports = {
     code: Joi.string().required(),
   },
   userProfile: {
-    id: Joi.objectId().required(),
+    id: Joi.number().required(),
     name: Joi.string().required(),
-    avatar_url: Joi.string(),
+    avatar_url: Joi.string().optional(),
     username: Joi.string()
       .alphanum()
       .min(4)

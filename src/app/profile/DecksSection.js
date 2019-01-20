@@ -26,7 +26,7 @@ class DecksSection extends Component {
           <div className="row">
             {decks.map(item => (
               <DeckItem
-                key={item.id}
+                key={item._id}
                 deck={item}
                 isPinned={this.isPinned(item.id)}
                 deckProgress={this.getDeckProgress(item.id)}
