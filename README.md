@@ -48,7 +48,7 @@ Note that running the script will **OVERWRITE** the records in the database. The
 	- Decks
 		- Cards
 
-Please refer to the `data_sample` directory for schema reference. 
+Please refer to the `data` directory for schema reference. 
 
 ### Relationships
 
