@@ -10,7 +10,7 @@ const Collection = sequelize.define("collections", {
   order: Sequelize.INTEGER,
   createdAt: Sequelize.DATE,
   updatedAt: Sequelize.DATE,
-  decks: Sequelize.JSON
+  __decks: Sequelize.JSON
 });
 
 module.exports = Collection;

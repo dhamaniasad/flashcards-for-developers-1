@@ -17,10 +17,11 @@ module.exports.searchContent = async (req, res, next) => {
     const regex = new RegExp(escapeRegex(text), "gi");
     const query = text !== "*" ? { name: regex, description: regex } : {};
 
-    const decks = await Deck.find({ status, ...query }).limit(10);
+    const decks = await Deck.findAll({ where: { status, ...query } }, { limit: 10 });
 
     res.send(decks);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };

@@ -6,6 +6,6 @@ module.exports = {
     search: Joi.string(),
   },
   getCollection: {
-    collectionId: Joi.objectId(),
+    collectionId: Joi.number(),
   },
 };
