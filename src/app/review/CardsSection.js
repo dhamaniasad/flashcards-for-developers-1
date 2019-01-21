@@ -75,7 +75,7 @@ class CardsSection extends Component {
           >
             {cards.map(card => (
               <div
-                key={card.id}
+                key={card._id}
                 className="card-row d-flex pl-3 pr-2 py-2"
                 style={{ borderBottom: "1px solid #e9e9e9" }}
               >

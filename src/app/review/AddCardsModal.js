@@ -25,7 +25,7 @@ class AddCardsModal extends Component {
     const { deck } = this.props;
     const { front, back } = this.state;
     api
-      .createCard({ front, back, deck: deck.id })
+      .createCard({ front, back, deck: deck._id })
       .then(this.handleSuccess)
       .catch(error => console.error(error));
   };

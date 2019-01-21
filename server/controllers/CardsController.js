@@ -37,9 +37,10 @@ module.exports.getCards = async (req, res, next) => {
 
 module.exports.createCard = async (req, res, next) => {
   try {
+    console.log(req.body);
     const { front, back, deck } = req.body;
-    const user = await User.findOne({ _id: req.user });
-    const { author } = await Deck.findOne({ _id: deck });
+    const user = await User.findOne({ where: {_id: req.user } });
+    const { author } = await Deck.findOne({ where: {_id: deck } });
 
     await Joi.validate(req.body, cardSchemas.createCard);
     await Joi.validate(user.user_plan, cardSchemas.proUser);
@@ -54,6 +55,7 @@ module.exports.createCard = async (req, res, next) => {
 
     return res.send(card);
   } catch (error) {
+    console.error(error);
     return next(error);
   }
 };
