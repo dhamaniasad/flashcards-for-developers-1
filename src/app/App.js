@@ -37,8 +37,8 @@ class App extends Component {
               <Route path="/logout" component={Logout} />
               <Route path="/auth/github" component={AuthRedirect} />
               <Route exact path="/decks/new" component={ReqAuth(DecksNew)} />
-              <Route exact path="/decks/:deckId" component={Review} />
-              <Route exact path="/decks/:deckId/:tabName" component={Review} />
+              <Route exact path="/decks/:deckId(\d+)" component={Review} />
+              <Route exact path="/decks/:deckId(\d+)/:tabName" component={Review} />
               <Route exact path="/collections" component={CollectionsHome} />
               <Route exact path="/collections/:collectionId" component={Collections} />
               <Route exact path="/collections/:collectionId/review" component={Review} />

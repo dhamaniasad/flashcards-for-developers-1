@@ -87,6 +87,7 @@ module.exports.getDeckProgress = async (req, res, next) => {
 
     res.send(deckProgress);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };

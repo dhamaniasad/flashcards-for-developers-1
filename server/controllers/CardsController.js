@@ -16,19 +16,21 @@ module.exports.getCards = async (req, res, next) => {
     await Joi.validate(req.query, cardSchemas.getCardsQuery);
 
     if (collectionId === "pinned") {
-      const user = await User.findOne({ _id: req.user });
+      const user = await User.findOne({ where: {_id: req.user } });
       cards = await Card.findAll({ where: { deck: { $in: [] } } });
     } else if (collectionId) {
       const collection = await Collection.findOne({ _id: collectionId });
       cards = await Card.findAll({ deck: { $in: collection.decks } });
     } else if (deckIds && deckIds.length > 0) {
       cards = await Card.findAll({ where: {deck: { $in: deckIds } } }).populate("deck");
+      // cards = await Card.findAll({ where: {deck: { $in: deckIds } } }).populate("deck");
     } else if (deckId) {
       cards = await Card.findAll({ where: {deck: deckId } });
     }
 
     res.send(cards);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };

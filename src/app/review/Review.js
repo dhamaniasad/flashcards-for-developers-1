@@ -40,6 +40,7 @@ class Review extends Component {
   // Lifecycle methods
   componentWillMount() {
     this.context.mixpanel.track("Reviewing.");
+    console.log(this.props);
 
     const { params } = this.props.match;
     if (params.tabName && params.tabName.length > 0) {
@@ -49,13 +50,14 @@ class Review extends Component {
 
   componentDidMount() {
     const { params } = this.props.match;
+    console.log(params);
     if (this.isCollectionPage()) {
       this.fetchCollection(params.collectionId);
       this.fetchMixedCards(params.collectionId);
       this.fetchStudyProgress();
     } else {
-      this.fetchDeck(params.deckId);
-      this.fetchDeckProgress(params.deckId);
+      this.fetchDeck(parseInt(params.deckId));
+      this.fetchDeckProgress(parseInt(params.deckId));
     }
   }
 
@@ -80,7 +82,7 @@ class Review extends Component {
         this.fetchMixedCards(collectionId);
       } else {
         const { deckId } = this.props.match.params;
-        this.fetchCards(deckId);
+        this.fetchCards(parseInt(deckId));
       }
     });
   };
@@ -93,7 +95,7 @@ class Review extends Component {
         document.title = data.name
           ? `${data.name} | Flashcards for Developers`
           : "Flashcards for Developers";
-        this.setState({ deck: data, isDeckLoading: false }, () => this.fetchCards(data.id));
+        this.setState({ deck: data, isDeckLoading: false }, () => this.fetchCards(data._id));
       },
       error => this.setState({ isError: true, isDeckLoading: false }),
     );
@@ -168,6 +170,7 @@ class Review extends Component {
   };
 
   handleCardsResponse = ({ data }) => {
+    console.log(data)
     // const { index } = this.state;
     this.setState({ cards: data, index: 0, isCardsLoading: false });
   };
