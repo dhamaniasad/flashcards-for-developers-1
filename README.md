@@ -25,7 +25,7 @@ start the backend server:
 $ yarn server
 ```
 
-Open a Terminal in another window and start the frontend server:
+Open a new Terminal and start the frontend server:
 
 ```sh
 $ yarn web
