@@ -187,11 +187,14 @@ module.exports.postStripeCharge = async (req, res, next) => {
 
 module.exports.getPinnedDecks = async (req, res, next) => {
   try {
-    const user = await User.findOne({ _id: req.user })
-      .select("+saved_decks")
-      .populate("saved_decks");
+        const user = await User.findOne({ where: { _id: req.user } })
+            // .select("+saved_decks")
+            // .populate("saved_decks");
 
-    res.send(user.saved_decks);
+        // res.send(user.saved_decks);
+
+    // res.send(user.saved_decks);
+    res.send([]);
   } catch (error) {
     next(error);
   }

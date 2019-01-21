@@ -43,7 +43,7 @@ const ReportLink = ({ content }) => (
 
 const filterExpiredCards = (cards, cardProgress) => {
   return cards.filter(card => {
-    const cardObj = cardProgress.find(el => el.card === card.id);
+    const cardObj = cardProgress.find(el => el.card === card._id);
     return !!cardObj ? leitner.isExpired(cardObj.leitnerBox, cardObj.reviewedAt) : true;
   });
 };

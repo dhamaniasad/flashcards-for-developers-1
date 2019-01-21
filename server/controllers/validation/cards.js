@@ -3,17 +3,17 @@ Joi.objectId = require("joi-objectid")(Joi);
 
 module.exports = {
   getCardsQuery: {
-    deck: Joi.objectId(),
+    deck: Joi.number(),
     collection: Joi.string(),
-    deckIds: [Joi.objectId(), Joi.array().items(Joi.objectId())],
+    deckIds: [Joi.number(), Joi.array().items(Joi.number())],
   },
   createCard: {
-    deck: Joi.objectId().required(),
+    deck: Joi.number().required(),
     front: Joi.string(),
     back: Joi.string().allow(""),
   },
   deleteCard: {
-    cardId: Joi.objectId().required(),
+    cardId: Joi.number().required(),
   },
   proUser: Joi.string()
     .valid("pro_monthly")

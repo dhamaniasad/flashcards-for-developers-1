@@ -243,7 +243,7 @@ class Review extends Component {
 
     return (
       <div>
-        <UpgradeModal isOpen={showUpgradeModal} title="Unlock this deck with Flashcards Pro" />
+        <UpgradeModal isOpen={false} title="Unlock this deck with Flashcards Pro" />
         <div
           className="review-header pt-4"
           style={{ background: "#f9f9f9", borderBottom: "1px solid #e8e8e8" }}
