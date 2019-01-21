@@ -30,7 +30,7 @@ module.exports.getDecks = async (req, res, next) => {
 module.exports.createDeck = async (req, res, next) => {
   try {
     const { name, description } = req.body;
-    const user = await User.findOne({ _id: req.user });
+    const user = await User.findOne({ where: {_id: req.user } });
 
     await Joi.validate(req.body, deckSchemas.createDeck);
     await Joi.validate(user.user_plan, deckSchemas.proUser);
@@ -39,6 +39,7 @@ module.exports.createDeck = async (req, res, next) => {
 
     res.send(deck);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };

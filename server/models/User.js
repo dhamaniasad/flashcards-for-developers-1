@@ -13,7 +13,9 @@ const User = sequelize.define("users", {
   email_notifications: { type: Sequelize.BOOLEAN, defaultValue: false },
   password: { type: Sequelize.STRING, allowNull: false },
   createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE
+  updatedAt: Sequelize.DATE,
+  __saved_decks: { type: Sequelize.JSON, defaultValue: []},
+  __study_sessions: { type: Sequelize.JSON, defaultValue: []}
 });
 
 module.exports = User;
