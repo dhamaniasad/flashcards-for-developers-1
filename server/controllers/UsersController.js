@@ -112,7 +112,7 @@ module.exports.createUser = async (req, res, next) => {
 
     await Joi.validate(req.body, userSchemas.createUser);
 
-    const user = registerUser(name, email, username, password);
+    const user = await registerUser(name, email, username, password);
 
     const token = jwt.sign(
       { id: user._id, username: user.username, name: user.name },

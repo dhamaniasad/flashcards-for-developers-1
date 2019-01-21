@@ -4,7 +4,7 @@ const sequelize = require("../../database/index")();
 const Deck = sequelize.define("decks", {
   _id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
   author: { type: Sequelize.INTEGER, references: { model: { tableName: "users" }, key: "_id" } },
-  cards: Sequelize.JSON,  // SQLite does not support Array
+  __cards: Sequelize.JSON,  // SQLite does not support Array
   status: { type: Sequelize.STRING, defaultValue: "public", allowNull: false, validate: {isIn: [["public", "private"]]} },
   name: { type: Sequelize.STRING, allowNull: false },
   type: { type: Sequelize.STRING, allowNull: false, defaultValue: "Self graded" },

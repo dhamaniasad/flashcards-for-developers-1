@@ -18,6 +18,12 @@ module.exports = {
           Sequelize.JSON, {
             transaction: t
           }
+        ),
+        queryInterface.addColumn('decks',
+          '__cards',
+          Sequelize.JSON, {
+            transaction: t
+          }
         )
 
       ]);
@@ -33,6 +39,9 @@ module.exports = {
           transaction: t
         }),
         queryInterface.removeColumn("users", "__study_sessions", {
+          transaction: t
+        }),
+        queryInterface.removeColumn("decks", "__cards", {
           transaction: t
         })
       ])

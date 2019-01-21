@@ -58,6 +58,7 @@ module.exports.getDeck = async (req, res, next) => {
 
     res.send(deck);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };

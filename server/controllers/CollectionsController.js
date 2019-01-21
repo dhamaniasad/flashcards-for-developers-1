@@ -10,8 +10,12 @@ module.exports.getCollections = async (req, res, next) => {
     await Joi.validate(req.query, collectionSchemas.getCollections);
 
     const collections = search
-      ? await Collection.find({ name: search }).populate("decks")
+      ? await Collection.find({ name: search })
       : await Collection.find({ hidden: { $ne: true } });
+
+    // const collections = search
+    //   ? await Collection.find({ name: search }).populate("decks")
+    //   : await Collection.find({ hidden: { $ne: true } });
 
     res.send(collections);
   } catch (error) {
