@@ -32,10 +32,10 @@ class PinnedSection extends Component {
           <div className="row">
             {pinnedDecks.map(item => (
               <DeckItem
-                key={item.id}
+                key={item._id}
                 deck={item}
-                isPinned={this.isPinned(item.id)}
-                deckProgress={this.getDeckProgress(item.id)}
+                isPinned={this.isPinned(item._id)}
+                deckProgress={this.getDeckProgress(item._id)}
                 onTogglePin={this.props.onTogglePin}
               />
             ))}

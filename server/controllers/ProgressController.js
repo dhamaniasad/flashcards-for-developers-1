@@ -12,11 +12,17 @@ module.exports.getStudyProgress = async (req, res, next) => {
   try {
     await Joi.validate(req.user, progressSchemas.user);
 
-    const deckProgress = await DeckProgress.find({ user: req.user });
+    const deckProgress = await DeckProgress.findAll({ user: req.user });
 
-    // const deckProgress = await DeckProgress.find({ user: req.user }).populate("cards");
+    let _deckProgress = [];
 
-    res.send(deckProgress);
+    for (var i = 0; i < deckProgress.length; i++) {
+      let cards = await deckProgress[i].getCards();
+      let data = deckProgress[i];
+      _deckProgress.push({ ...data.dataValues, cards });
+    }
+
+    res.send(_deckProgress);
   } catch (error) {
     next(error);
   }
@@ -149,7 +155,7 @@ module.exports.addCardProgress = async (req, res, next) => {
     deckProgress = await DeckProgress.findOne({ where: { deck: deckId, user: user } });
 
     let cards = await deckProgress.getCards();
-    
+
     // Log review event
     await ReviewEvent.create({ user: user, card: cardId });
 
