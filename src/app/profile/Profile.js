@@ -160,8 +160,7 @@ class Profile extends Component {
                 className="bg-white rounded px-3 py-2 mb-2 d-flex align-items-center"
                 style={{ minWidth: "260px", minHeight: "90px", border: "1px solid #d3d3d3" }}
               >
-            {/* TODO: FIX */}
-                {/*<SkillProgress decks={[...decks, ...pinnedDecks]} studyProgress={studyProgress} />*/}
+                <SkillProgress decks={[...decks, ...pinnedDecks]} studyProgress={studyProgress} />
               </div>
             </div>
 

@@ -12,10 +12,10 @@ module.exports = {
   addStudyProgress: Joi.array()
     .items(
       Joi.object().keys({
-        deck: Joi.objectId().required(),
+        deck: Joi.number().required(),
         cards: Joi.array().items(
           Joi.object().keys({
-            card: Joi.objectId().required(),
+            card: Joi.number().required(),
             reviewedAt: Joi.string().required(),
             leitnerBox: Joi.number().required(),
           }),
@@ -25,8 +25,8 @@ module.exports = {
     .required(),
   addCardProgress: {
     params: {
-      deckId: Joi.objectId().required(),
-      cardId: Joi.objectId().required(),
+      deckId: Joi.number().required(),
+      cardId: Joi.number().required(),
     },
     body: {
       leitnerBox: Joi.number().required(),

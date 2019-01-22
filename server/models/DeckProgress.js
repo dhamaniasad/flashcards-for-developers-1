@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require("../../database/index")();
+const CardProgress = require("./CardProgress");
+const _ = require("lodash");
 
 const DeckProgress = sequelize.define("deckprogress", {
 	_id: {
@@ -16,7 +18,7 @@ const DeckProgress = sequelize.define("deckprogress", {
 			key: "_id"
 		}
 	},
-	author: {
+	user: {
 		type: Sequelize.INTEGER,
 		references: {
 			model: {
@@ -30,10 +32,25 @@ const DeckProgress = sequelize.define("deckprogress", {
 		defaultValue: []
 	},
 	createdAt: Sequelize.DATE,
-	updatedAt: Sequelize.DATE
+	updatedAt: Sequelize.DATE,
+	cards: {
+		type: Sequelize.VIRTUAL,
+		get: function () {
+			return [];
+		}
+	}
 }, {
 	freezeTableName: true
 });
+
+DeckProgress.prototype.getCards = async function () {
+  var _cards = this.__cards;
+  var cards = await CardProgress.findAll({ where: {_id: {$in: _cards} } });
+  cards = _.map(cards, (card) => {
+  	return card.dataValues;
+  });
+  return cards;
+}
 
 module.exports = DeckProgress;
 

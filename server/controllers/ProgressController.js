@@ -6,6 +6,7 @@ const CardProgress = require("../models/CardProgress");
 const ReviewEvent = require("../models/ReviewEvent");
 
 const progressSchemas = require("./validation/progress");
+const _ = require("lodash");
 
 module.exports.getStudyProgress = async (req, res, next) => {
   try {
@@ -99,29 +100,62 @@ module.exports.addCardProgress = async (req, res, next) => {
   try {
     const { user } = req;
     const { deckId, cardId } = req.params;
-    const { leitnerBox, reviewedAt } = req.body;
+    let { leitnerBox, reviewedAt } = req.body;
+    reviewedAt = new Date(reviewedAt);
 
     await Joi.validate(req.user, progressSchemas.user);
     await Joi.validate(req.params, progressSchemas.addCardProgress.params);
     await Joi.validate(req.body, progressSchemas.addCardProgress.body);
 
-    const cardProgress = await CardProgress.findOneAndUpdate(
-      { card: cardId, user: user },
-      { leitnerBox: leitnerBox, reviewedAt: reviewedAt },
-      { new: true, upsert: true },
+    // Sequelize requires _id to be provided on upsert or it creates a new document
+    let existingCardProgress = await CardProgress.findOne({ where: { card: cardId, user: user } });
+
+    let cardProgressDocToUpsert = {
+       card: cardId, user: user, leitnerBox: leitnerBox, reviewedAt: reviewedAt 
+    };
+
+    if (existingCardProgress) {
+      cardProgressDocToUpsert._id = existingCardProgress._id;
+    }
+
+    let cardProgress = await CardProgress.upsert(
+      cardProgressDocToUpsert
     );
 
-    const deckProgress = await DeckProgress.findOneAndUpdate(
-      { deck: deckId, user: user },
-      { $addToSet: { cards: cardProgress } },
-      { new: true, upsert: true },
-    ).populate("cards");
+    // SQLite upsert does not return document if its created, only when updated, hence we need to do this
+    cardProgress = await CardProgress.findOne({ where: { card: cardId, user: user, reviewedAt: reviewedAt } });
 
+    let existingDeckProgress = await DeckProgress.findOne({ where: { deck: deckId, user: user } });
+
+    let deckProgressDocToUpsert = {
+      deck: deckId, user: user
+    }
+
+    if (existingDeckProgress) {
+      deckProgressDocToUpsert._id = existingDeckProgress._id;
+
+      let __cards = existingDeckProgress.__cards;
+      __cards.push(cardProgress._id);
+
+      deckProgressDocToUpsert.__cards = _.uniq(__cards);
+    } else {
+      deckProgressDocToUpsert.__cards = [cardProgress._id];
+    }
+
+    let deckProgress = await DeckProgress.upsert(
+      deckProgressDocToUpsert
+    );
+
+    deckProgress = await DeckProgress.findOne({ where: { deck: deckId, user: user } });
+
+    let cards = await deckProgress.getCards();
+    
     // Log review event
     await ReviewEvent.create({ user: user, card: cardId });
 
-    res.send(deckProgress);
+    res.send({ ...deckProgress.dataValues, cards });
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
