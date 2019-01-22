@@ -7,6 +7,8 @@ const ReviewEvent = sequelize.define("reviewevent", {
   card: { type: Sequelize.INTEGER, references: { model: { tableName: "cards" }, key: "_id" } },
   createdAt: Sequelize.DATE,
   updatedAt: Sequelize.DATE
+}, {
+  freezeTableName: true
 });
 
 module.exports = ReviewEvent;

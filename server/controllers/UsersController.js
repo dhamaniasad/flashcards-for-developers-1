@@ -20,6 +20,7 @@ const MEMBERSHIP_LIST = "6aa2bb18b4";
 const SUBSCRIPTION_PLAN = "pro_monthly";
 const registerUser = require("../utils/registerUser");
 const loginUser = require("../utils/loginUser");
+const sequelize = require("../../database/index")();
 
 const stripe = Stripe(config.stripePrivateKey);
 
@@ -261,9 +262,11 @@ module.exports.addStudySessions = async (req, res, next) => {
 
 module.exports.getStudySessions = async (req, res, next) => {
   try {
-    const user = await User.findOne({ _id: req.user }).select("+study_sessions");
+    //todo: implement
+    // const user = await User.findOne({ _id: req.user }).select("+study_sessions");
 
-    res.send(user.study_sessions);
+    // res.send(user.study_sessions);
+    res.send([]);
   } catch (error) {
     next(error);
   }
@@ -331,15 +334,19 @@ module.exports.getUserProfile = async (req, res, next) => {
 module.exports.getUserReviews = async (req, res, next) => {
   try {
     const { username } = req.params;
-    const user = await User.findOne({ username });
-    const reviews = await ReviewEvent.aggregate([
-      { $match: { user: user._id } },
-      { $project: { yearMonthDay: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } } } },
-      { $group: { _id: "$yearMonthDay", count: { $sum: 1 } } },
-    ]);
+    const user = await User.findOne({ where: { username } });
 
-    res.send(reviews);
+    const reviews = await sequelize.query(
+      `SELECT    DATE(createdAt) AS '_id',
+       COUNT(*) AS 'count'
+       FROM      reviewevent
+       WHERE user = ${user._id}
+       GROUP BY  DATE(createdAt)`
+    );
+
+    res.send(reviews[0]);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
@@ -348,10 +355,9 @@ module.exports.getUserPinnedDecks = async (req, res, next) => {
   try {
     const { username } = req.params;
 
-    const user = await User.findOne({ where: { username } })
+    const user = await User.findOne({ where: { username } });
 
-    // TODO: Fix
-    const saved_decks = await Deck.findAll({ where: { author: user._id } });
+    const saved_decks = await user.saved_decks();
 
     res.send(saved_decks);
   } catch (error) {
@@ -360,14 +366,15 @@ module.exports.getUserPinnedDecks = async (req, res, next) => {
 };
 
 module.exports.getUserActivity = async (req, res, next) => {
+  // todo: fix
   try {
     const { username } = req.params;
 
-    const user = await User.findOne({ username });
-    const reviews = await ReviewEvent.find({ user: user._id });
+    const user = await User.findOne({ where: {username } });
+    const reviews = await ReviewEvent.findAll({ user: user._id });
     const studyDates = [...new Set(reviews.map(el => moment(el.createdAt).format("YYYY-DD-MM")))];
-    const cardProgresses = await CardProgress.find({ user: user._id });
-    const masteredCards = await CardProgress.find({ user: user._id, leitnerBox: { $gt: 5 } });
+    const cardProgresses = await CardProgress.findAll({ where: { user: user._id } });
+    const masteredCards = await CardProgress.findAll({ where: { user: user._id, leitnerBox: { $gt: 5 } } });
 
     const currentStreak = streaks.getCurrentStreak(studyDates);
     const longestStreak = streaks.getLongestStreak(studyDates);
@@ -379,6 +386,7 @@ module.exports.getUserActivity = async (req, res, next) => {
       longest_streak: longestStreak,
     });
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };

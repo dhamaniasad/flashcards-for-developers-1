@@ -9,6 +9,8 @@ const CardProgress = sequelize.define("cardprogress", {
   leitnerBox: Sequelize.INTEGER,
   createdAt: Sequelize.DATE,
   updatedAt: Sequelize.DATE
+}, {
+  freezeTableName: true
 });
 
 module.exports = CardProgress;

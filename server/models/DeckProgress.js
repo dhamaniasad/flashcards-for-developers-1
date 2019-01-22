@@ -31,6 +31,8 @@ const DeckProgress = sequelize.define("deckprogress", {
 	},
 	createdAt: Sequelize.DATE,
 	updatedAt: Sequelize.DATE
+}, {
+	freezeTableName: true
 });
 
 module.exports = DeckProgress;

@@ -11,7 +11,9 @@ module.exports.getStudyProgress = async (req, res, next) => {
   try {
     await Joi.validate(req.user, progressSchemas.user);
 
-    const deckProgress = await DeckProgress.find({ user: req.user }).populate("cards");
+    const deckProgress = await DeckProgress.find({ user: req.user });
+
+    // const deckProgress = await DeckProgress.find({ user: req.user }).populate("cards");
 
     res.send(deckProgress);
   } catch (error) {

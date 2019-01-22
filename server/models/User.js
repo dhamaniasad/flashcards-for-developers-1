@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelize = require("../../database/index")();
+const Deck = require("./Deck");
 
 const User = sequelize.define("users", {
   _id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
@@ -17,6 +18,12 @@ const User = sequelize.define("users", {
   __saved_decks: { type: Sequelize.JSON, defaultValue: []},
   __study_sessions: { type: Sequelize.JSON, defaultValue: []}
 });
+
+User.prototype.saved_decks = async function () {
+  var _saved_decks = this.__saved_decks;
+  var decks = await Deck.findAll({where: {_id: {$in: _saved_decks} }});
+  return decks;
+}
 
 module.exports = User;
 
