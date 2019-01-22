@@ -16,7 +16,8 @@ const User = sequelize.define("users", {
   createdAt: Sequelize.DATE,
   updatedAt: Sequelize.DATE,
   __saved_decks: { type: Sequelize.JSON, defaultValue: []},
-  __study_sessions: { type: Sequelize.JSON, defaultValue: []}
+  __study_sessions: { type: Sequelize.JSON, defaultValue: []},
+  study_sessions: { type: Sequelize.VIRTUAL, get() { return this.__study_sessions; } }
 });
 
 User.prototype.saved_decks = async function () {

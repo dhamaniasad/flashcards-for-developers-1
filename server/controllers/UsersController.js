@@ -21,6 +21,7 @@ const SUBSCRIPTION_PLAN = "pro_monthly";
 const registerUser = require("../utils/registerUser");
 const loginUser = require("../utils/loginUser");
 const sequelize = require("../../database/index")();
+const _ = require("lodash");
 
 const stripe = Stripe(config.stripePrivateKey);
 
@@ -248,14 +249,24 @@ module.exports.addStudySessions = async (req, res, next) => {
     await Joi.validate(req.body, userSchemas.addStudySessions);
 
     const fmtDates = dates.map(el => moment(el).format());
-    const user = await User.findOneAndUpdate(
-      { _id: req.user },
-      { $addToSet: { study_sessions: fmtDates } },
-      { new: true },
-    ).select("+study_sessions");
+
+    let user = await User.findOne({ where: { _id: req.user } });
+
+    let __study_sessions = user.__study_sessions;
+    __study_sessions.push(fmtDates);
+
+    __study_sessions = _.uniq(_.flatMap(__study_sessions));
+
+    user = await User.update(
+      { __study_sessions: __study_sessions },
+      { where: { _id: req.user } }
+    )
+
+    user = await User.findOne({ where: { _id: req.user } });
 
     res.send(user.study_sessions);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
