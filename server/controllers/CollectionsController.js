@@ -14,7 +14,7 @@ module.exports.getCollections = async (req, res, next) => {
     const collections = search
       ? await Collection.findAll({ where: { name: search } })
       : await Collection.findAll({ where: {} });
-
+      // TODO: FIX
     // const collections = search
     //   ? await Collection.find({ name: search }).populate("decks")
     //   : await Collection.find({ hidden: { $ne: true } });
@@ -35,6 +35,24 @@ module.exports.getCollection = async (req, res, next) => {
     const collection = await Collection.findOne({ where: { _id: collectionId } }).populate("decks");
     res.send(collection);
   } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.createCollection = async (req, res, next) => {
+  try {
+
+    let { name, description, emoji, color } = req.body;
+    // const user = await User.findOne({ where: {_id: req.user } });
+
+    await Joi.validate({ ...req.body, color: color.replace("#", "") }, collectionSchemas.createCollection);
+    // await Joi.validate(user.user_plan, deckSchemas.proUser);
+
+    const collection = await Collection.create({ name, description, color, emoji });
+
+    res.send(collection);
+  } catch (error) {
+    console.error(error);
     next(error);
   }
 };

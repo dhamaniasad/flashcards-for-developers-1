@@ -41,6 +41,10 @@ export const fetchCollections = searchStr => {
   return authAxios.get(`/api/collections${params}`);
 };
 
+export const createCollection = ({ name, description, emoji, color }) => {
+  return authAxios.post("/api/collections", { name, description, emoji, color });
+};
+
 // Cards releated endpoints
 export const createCard = ({ front, back, deck }) => {
   return authAxios.post("/api/cards", { front, back, deck });

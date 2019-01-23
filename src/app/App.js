@@ -5,6 +5,7 @@ import Pages from "../pages/Pages";
 import Home from "./home/Home";
 import Review from "./review/Review";
 import DecksNew from "./decks/DecksNew";
+import CollectionsNew from "./collections/CollectionsNew";
 import CollectionsHome from "./collections/CollectionsHome";
 import Collections from "./collections/Collections";
 import Logout from "./auth/Logout";
@@ -36,6 +37,7 @@ class App extends Component {
               <Route path="/pages" component={Pages} />
               <Route path="/logout" component={Logout} />
               <Route path="/auth/github" component={AuthRedirect} />
+              <Route exact path="/collections/new" component={ReqAuth(CollectionsNew)} />
               <Route exact path="/decks/new" component={ReqAuth(DecksNew)} />
               <Route exact path="/decks/:deckId(\d+)" component={Review} />
               <Route exact path="/decks/:deckId(\d+)/:tabName" component={Review} />

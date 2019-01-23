@@ -45,6 +45,23 @@ const LogoutTooltip = ({ user }) => (
   </div>
 );
 
+const CreateTooltip = function() {
+  return (
+    <div className="tooltip-content">
+      <div className="tooltip-item">
+        <Link className="text-secondary" to={"/collections/new"} >
+          New Collection
+        </Link>
+      </div>
+      <div className="tooltip-item">
+        <Link className="text-secondary" to={"/decks/new"} >
+          New Deck
+        </Link>
+      </div>
+    </div>
+  )
+};
+
 const PlaceholderImage = () => (
   <div className="header-image d-flex align-items-center justify-content-center rounded rounded-circle bg-primary">
     <span
@@ -122,15 +139,22 @@ class Header extends Component {
 
             {authenticated
               ? [
-                  <li className="list-inline-item mx-0" key={0}>
-                    <Link to="/decks/new">
-                      <Octicon
-                        className="nav-icon d-flex align-items-center p-2"
-                        name="plus"
-                        width={20}
-                        height={20}
-                      />
-                    </Link>
+                  <li className="header-login list-inline-item ml-3" key={0}>
+                    <Tooltip
+                      placement="bottomRight"
+                      trigger={["click"]}
+                      overlay={<CreateTooltip />}
+                      id="header-logout"
+                    >
+                      <div className="position-relative">
+                        <Octicon
+                          className="nav-icon d-flex align-items-center p-2"
+                          name="plus"
+                          width={20}
+                          height={20}
+                        />
+                      </div>
+                    </Tooltip>
                   </li>,
                   <li className="list-inline-item mx-0" key={-1}>
                     <Link to={`/${user.username}/pinned`} disabled={!user.username}>

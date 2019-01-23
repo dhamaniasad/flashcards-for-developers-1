@@ -36,6 +36,7 @@
     "query-string": "^6.2.0",
     "rc-tooltip": "^3.7.2",
     "react": "^16.4.1",
+    "react-color": "^2.17.0",
     "react-dom": "^16.4.1",
     "react-ga": "^2.5.3",
     "react-mixpanel": "^0.0.11",

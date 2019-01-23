@@ -7,7 +7,7 @@ const Collection = sequelize.define("collections", {
   description: { type: Sequelize.STRING },
   emoji: { type: Sequelize.STRING },
   color: { type: Sequelize.STRING },
-  order: Sequelize.INTEGER,
+  order: { type: Sequelize.INTEGER, defaultValue: 1 },
   createdAt: Sequelize.DATE,
   updatedAt: Sequelize.DATE,
   __decks: Sequelize.JSON

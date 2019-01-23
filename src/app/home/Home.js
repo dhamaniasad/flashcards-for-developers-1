@@ -226,7 +226,7 @@ class Decks extends Component {
               <div className="px-0  mx-0 mx-lg-auto">
                 <div className="collection-row row pt-1">
                   {collections.slice(0, 4).map(item => (
-                    <CollectionItem key={item.id} collection={item} />
+                    <CollectionItem key={item._id} collection={item} />
                   ))}
                 </div>
               </div>

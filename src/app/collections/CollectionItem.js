@@ -5,7 +5,7 @@ const CollectionItem = ({ collection }) => (
   <div className="collection-item col-12 col-sm-6 col-md-4 col-lg-3 d-flex mb-3">
     <Link
       className="item-link bg-white text-center rounded w-100 d-flex flex-column p-3 position-relative"
-      to={`/collections/${collection.id}`}
+      to={`/collections/${collection._id}`}
     >
       <div className="collection-image mb-2" style={{ background: collection.color }}>
         <span style={{ width: "22px" }}>{collection.emoji}</span>
