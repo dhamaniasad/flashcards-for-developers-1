@@ -70,5 +70,6 @@ router.get("/study_progress", isAuthenticated, ProgressController.getStudyProgre
 router.put("/study_progress", isAuthenticated, ProgressController.addStudyProgress);
 router.get("/study_progress/:deckId", isAuthenticated, ProgressController.getDeckProgress);
 router.put("/study_progress/:deckId/:cardId", isAuthenticated, ProgressController.addCardProgress);
+router.get("/study_stats", ProgressController.getStudyStats);
 
 module.exports = router;

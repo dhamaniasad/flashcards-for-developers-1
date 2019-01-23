@@ -3,13 +3,29 @@ import { Link } from "react-router-dom";
 
 import * as analytics from "../components/GoogleAnalytics";
 import isProMember from "./utils/isProMember";
+import { getStudyStats } from "./apiActions";
 
-const Footer = () => (
-  <div className="bg-dark">
+class Footer extends React.Component {
+  state = { cards: 0, times: 0 };
+
+  fetchStudyStats() {
+    let self = this;
+    let res = getStudyStats().then((res) => {
+      self.setState(res.data);
+    });
+  }
+
+  componentDidMount() {
+    this.fetchStudyStats();
+  };
+
+  render() {
+    return (
+      <div className="bg-dark">
     <div className="container container--full d-flex flex-column flex-md-row align-items-center justify-content-between p-4">
       <div className="text-secondary d-flex flex-column">
-        <small className="font-weight-medium">Flashcards For Developers © 2018</small>
-        <small>2968 cards studied 111,385 times</small>
+        <small className="font-weight-medium">Flashcards For Teachers © 2019</small>
+        <small>{this.state.cards} cards studied {this.state.times} times</small>
       </div>
 
       <ul className="list-inline mb-0 text-center text-md-right">
@@ -61,6 +77,8 @@ const Footer = () => (
       </ul>
     </div>
   </div>
-);
+    )
+  }
+}
 
 export default Footer;

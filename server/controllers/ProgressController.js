@@ -4,6 +4,7 @@ const User = require("../models/User");
 const DeckProgress = require("../models/DeckProgress");
 const CardProgress = require("../models/CardProgress");
 const ReviewEvent = require("../models/ReviewEvent");
+const Card = require("../models/Card");
 
 const progressSchemas = require("./validation/progress");
 const _ = require("lodash");
@@ -165,3 +166,9 @@ module.exports.addCardProgress = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.getStudyStats = async (req, res, next) => {
+  let cards = await Card.findAll();
+  let times = await ReviewEvent.findAll();
+  res.send({ cards: cards.length, times: times.length });
+}

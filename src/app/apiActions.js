@@ -155,3 +155,7 @@ export const addStudyProgress = progressObjs => {
 export const addCardProgress = (deckId, cardId, leitnerBox, reviewedAt) => {
   return authAxios.put(`/study_progress/${deckId}/${cardId}`, { leitnerBox, reviewedAt });
 };
+
+export const getStudyStats = () => {
+  return axios.get("/study_stats");
+};
