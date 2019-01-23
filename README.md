@@ -2,7 +2,7 @@
 
 Using **flashcards for teachers** makes it possible to manage your English classes with flashcards.  You can check your students understanding by checking the progress of their flashcards.
 
-**flashcards for teachers** derives from[flashcards for developers](https://github.com/nlaz/flashcards-for-developers).  The system has been customized to meet the needs of English education in Japan.
+**flashcards for teachers** derives from [flashcards for developers](https://github.com/nlaz/flashcards-for-developers).  **flashcards for teachers** has been customized to meet the needs of English education in Japan.
 
 ## Installing
 
