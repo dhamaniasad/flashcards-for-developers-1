@@ -273,7 +273,7 @@ module.exports.addStudySessions = async (req, res, next) => {
 
 module.exports.getStudySessions = async (req, res, next) => {
   try {
-    const user = await User.findOne({ _id: req.user });
+    const user = await User.findOne({ where: { _id: req.user } });
 
     res.send(user.study_sessions);
   } catch (error) {
