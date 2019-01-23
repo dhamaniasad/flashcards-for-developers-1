@@ -8,6 +8,7 @@ import * as analytics from "../../components/GoogleAnalytics";
 import cookie from "js-cookie";
 import * as api from "../apiActions";
 import * as localStorage from "../utils/localStorage";
+import DeckItem from "../home/DeckItem";
 
 const GITHUB_PARAMS = qs.stringify({
   client_id: config.githubOAuthClientId,
@@ -21,11 +22,12 @@ if (process.env.NODE_ENV !== "test") {
 
 const ERRORS = { REQUIRED: "Required", INVALID: "Invalid" };
 
-class LoginModal extends Component {
+class AddDeckModal extends Component {
   state = {
     profile: { email: "", password: "" },
     errors: { email: undefined, form: undefined },
-    isLoading: true
+    isLoading: true,
+    decks: []
   };
 
 
@@ -73,8 +75,9 @@ class LoginModal extends Component {
   };
 
   render() {
-    const { profile = {}, errors = {}, isLoading } = this.state;
+    const { profile = {}, errors = {}, isLoading, decks } = this.state;
     const { isOpen, onClose } = this.props;
+    console.log('decks, ', decks);
 
     return (
       <Modal
@@ -111,7 +114,20 @@ class LoginModal extends Component {
 
           {isLoading ? (
             <h1 className="text-secondary pt-4">Loading decks...</h1>
-           ) : ""}
+           ) : (
+            <div>
+              {decks.map(deck => (
+                <DeckItem
+                  deck={deck}
+                  key={deck._id}
+                  isPinned={false}
+                  onTogglePin={() => {}}
+                  newCollectionPage={true}
+                  isInCollection={false}
+                />
+              ))}
+            </div>
+           )}
 
         </div>
       </Modal>
@@ -119,4 +135,4 @@ class LoginModal extends Component {
   }
 }
 
-export default LoginModal;
+export default AddDeckModal;

@@ -33,40 +33,72 @@ class DeckItem extends Component {
     }
   };
 
+  pinDeckContainer = (label) => {
+    return (
+      <button
+        className={cx("pin-btn badge align-items-center p-0", {
+          "pin-btn-active": this.props.isPinned,
+        })}
+        onClick={e => this.props.onTogglePin(e, this.props.deck)}
+      >
+        <Octicon
+          name="pin"
+          className="d-flex align-items-center ml-1 "
+          width={13}
+          height={13}
+        />
+        <span className="text-uppercase pr-1 py-1 m-0" style={{ paddingLeft: "1px" }}>
+          {label}
+        </span>
+      </button>
+    )
+  };
+
+  addToCollectionContainer = (label) => {
+    return (
+      <button
+        className={cx("pin-btn badge align-items-center p-0 coll-btn", {
+          "coll-btn-remove": this.props.isInCollection
+        })}
+        onClick={e => this.props.onTogglePin(e, this.props.deck)}
+      >
+        <Octicon
+          name="plus"
+          className="d-flex align-items-center ml-1 color-white"
+          width={13}
+          height={13}
+        />
+        <span className="text-uppercase pr-1 py-1 m-0" style={{ paddingLeft: "1px" }}>
+          {label}
+        </span>
+      </button>
+    )
+  }
+
   render() {
     const progress = utils.calcStudyProgress(this.props.deck, this.props.deckProgress);
     const proficiency = utils.calcStudyProficiency(this.props.deckProgress);
     const label = this.props.isPinned ? "Pinned" : "Pin";
+    const isNewCollectionPage = this.props.newCollectionPage;
+    const collectionLabel = this.props.isInCollection ? "Remove From Collection" : "Add To Collection";
+
+    let cardClasses = isNewCollectionPage ? "" : "col-12 col-sm-6 col-md-4 col-lg-3";
 
     return (
-      <div className="deck-item col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+      <div className={`deck-item col-12 ${cardClasses} d-flex`}>
         <UpgradeModal isOpen={this.state.showUpgradeModal} onClose={this.onCloseUpgradeModal} />
 
         <Link
           onClick={this.onClick}
-          to={`/decks/${this.props.deck._id}`}
+          to={isNewCollectionPage ? "#" : `/decks/${this.props.deck._id}`}
           className="border border-dark bg-white rounded d-flex flex-column justify-content-between text-dark mb-3 p-4 w-100 position-relative"
           style={{ fontSize: "14px" }}
         >
           <div>
             <ProgressBar className="mb-2" progress={progress} proficiency={proficiency} />
             {this.props.deck.name}
-            <button
-              className={cx("pin-btn badge align-items-center p-0", {
-                "pin-btn-active": this.props.isPinned,
-              })}
-              onClick={e => this.props.onTogglePin(e, this.props.deck)}
-            >
-              <Octicon
-                name="pin"
-                className="d-flex align-items-center ml-1"
-                width={13}
-                height={13}
-              />
-              <span className="text-uppercase pr-1 py-1 m-0" style={{ paddingLeft: "1px" }}>
-                {label}
-              </span>
-            </button>
+            {!isNewCollectionPage && this.pinDeckContainer(label)}
+            {isNewCollectionPage && this.addToCollectionContainer(collectionLabel)}
             <div
               className="position-absolute d-flex align-items-center"
               style={{ bottom: "16px", right: "18px" }}

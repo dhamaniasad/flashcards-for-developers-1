@@ -178,6 +178,22 @@ a[disabled] {
   border-color: transparent;
 }
 
+.deck-item .coll-btn {
+  display: flex;
+  color: white;
+  fill: red;
+  background-color: #28a745;
+}
+
+.color-white {
+  color: white;
+}
+
+.deck-item .coll-btn-remove {
+  fill: blue;
+  background-color: #cb2431;
+}
+
 .pin-btn-active svg,
 .deck-item:hover .pin-btn-active svg {
   fill: white;
