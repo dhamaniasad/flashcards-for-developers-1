@@ -13,7 +13,7 @@ module.exports.getCollections = async (req, res, next) => {
 
     const collections = search
       ? await Collection.findAll({ where: { name: search } })
-      : await Collection.findAll({});
+      : await Collection.findAll({ where: {} });
 
     // const collections = search
     //   ? await Collection.find({ name: search }).populate("decks")
@@ -32,7 +32,7 @@ module.exports.getCollection = async (req, res, next) => {
 
     await Joi.validate(req.params, collectionSchemas.getCollection);
 
-    const collection = await Collection.findOne({ _id: collectionId }).populate("decks");
+    const collection = await Collection.findOne({ where: { _id: collectionId } }).populate("decks");
     res.send(collection);
   } catch (error) {
     next(error);

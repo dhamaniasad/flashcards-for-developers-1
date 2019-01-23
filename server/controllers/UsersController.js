@@ -273,11 +273,9 @@ module.exports.addStudySessions = async (req, res, next) => {
 
 module.exports.getStudySessions = async (req, res, next) => {
   try {
-    //todo: implement
-    // const user = await User.findOne({ _id: req.user }).select("+study_sessions");
+    const user = await User.findOne({ _id: req.user });
 
-    // res.send(user.study_sessions);
-    res.send([]);
+    res.send(user.study_sessions);
   } catch (error) {
     next(error);
   }
@@ -382,7 +380,7 @@ module.exports.getUserActivity = async (req, res, next) => {
     const { username } = req.params;
 
     const user = await User.findOne({ where: {username } });
-    const reviews = await ReviewEvent.findAll({ user: user._id });
+    const reviews = await ReviewEvent.findAll({ where: { user: user._id } });
     const studyDates = [...new Set(reviews.map(el => moment(el.createdAt).format("YYYY-DD-MM")))];
     const cardProgresses = await CardProgress.findAll({ where: { user: user._id } });
     const masteredCards = await CardProgress.findAll({ where: { user: user._id, leitnerBox: { $gt: 5 } } });

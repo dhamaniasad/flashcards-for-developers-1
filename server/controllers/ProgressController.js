@@ -12,7 +12,7 @@ module.exports.getStudyProgress = async (req, res, next) => {
   try {
     await Joi.validate(req.user, progressSchemas.user);
 
-    const deckProgress = await DeckProgress.findAll({ user: req.user });
+    const deckProgress = await DeckProgress.findAll({ where: { user: req.user } });
 
     let _deckProgress = [];
 

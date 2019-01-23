@@ -51,7 +51,7 @@ class CardsSection extends Component {
     const { deck } = this.props;
 
     const user = isAuthenticated() ? JSON.parse(cookie.get("user")) : {};
-    const isOwner = deck.author === user.id;
+    const isOwner = deck.author === user._id;
 
     return (
       <div className="my-2">
