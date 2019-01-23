@@ -7,21 +7,21 @@ import * as utils from "../utils/studyProgress";
 const SkillProgress = ({ decks, studyProgress }) => {
   const avgProgress = Math.round(
     decks.reduce((avg, deck) => {
-      const deckObj = studyProgress.find(el => el.deck === deck.id);
+      const deckObj = studyProgress.find(el => el.deck === deck._id);
       const progress = utils.calcStudyProgress(deck, deckObj);
       return avg + progress * 100;
     }, 0) / decks.length,
   );
 
   const numPractices = decks.filter(deck => {
-    const deckObj = studyProgress.find(el => el.deck === deck.id);
+    const deckObj = studyProgress.find(el => el.deck === deck._id);
     const progress = utils.calcStudyProgress(deck, deckObj);
     return progress > 0;
   }).length;
 
   const avgProficiency =
     decks.reduce((avg, deck) => {
-      const deckObj = studyProgress.find(el => el.deck === deck.id);
+      const deckObj = studyProgress.find(el => el.deck === deck._id);
       const progress = utils.calcStudyProgress(deck, deckObj);
       const proficiency = utils.calcStudyProficiency(deckObj);
       return progress > 0 ? avg + proficiency : avg;
