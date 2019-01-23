@@ -23,7 +23,13 @@ const User = sequelize.define("users", {
 User.prototype.saved_decks = async function () {
   var _saved_decks = this.__saved_decks;
   var decks = await Deck.findAll({where: {_id: {$in: _saved_decks} }});
-  return decks;
+  var resDecks = [];
+  for (var i = 0; i < decks.length; i++) {
+    let deck = decks[i];
+    let cards = await deck.getCards();
+    resDecks.push({ ...deck.dataValues, cards: cards });
+  }
+  return resDecks;
 }
 
 module.exports = User;

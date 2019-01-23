@@ -177,7 +177,7 @@ class Review extends Component {
 
   setStudyProgress = (card, isCorrect) => {
     const deckId = card.deck.id || card.deck;
-    const cardObj = this.state.cardProgress.find(el => el.card === card.id) || {};
+    const cardObj = this.state.cardProgress.find(el => el.card === card._id) || {};
     const { reviewedAt, leitnerBox } = studyProgress.calcUpdatedLevel(cardObj, isCorrect);
 
     if (isAuthenticated()) {

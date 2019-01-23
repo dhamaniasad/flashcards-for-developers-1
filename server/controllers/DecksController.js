@@ -56,7 +56,9 @@ module.exports.getDeck = async (req, res, next) => {
       deck = await Deck.findOne({ where: { _id: deckId, author: req.user, status: "private" } });
     }
 
-    res.send(deck);
+    let cards = await deck.getCards();
+
+    res.send({ ...deck, cards: cards });
   } catch (error) {
     console.error(error);
     next(error);
@@ -109,7 +111,15 @@ module.exports.getDecksForUser = async (req, res, next) => {
       decks = await Deck.findAll({ where: { author: user._id } });
     }
 
-    res.send(decks);
+    let resDecks = [];
+
+    for (var i = 0; i < decks.length; i++) {
+      let deck = decks[i];
+      let cards = await deck.getCards();
+      resDecks.push({ ...deck.dataValues, cards: cards });
+    }
+
+    res.send(resDecks);
   } catch (error) {
     next(error);
   }

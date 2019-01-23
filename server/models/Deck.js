@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require("../../database/index")();
+const Card = require("./Card");
+const _ = require("lodash");
 
 const Deck = sequelize.define("decks", {
   _id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
@@ -20,6 +22,13 @@ const Deck = sequelize.define("decks", {
   createdAt: Sequelize.DATE,
   updatedAt: Sequelize.DATE
 });
+
+Deck.prototype.getCards = async function () {
+  let cards = await Card.findAll({ where: { deck: this._id } });
+  return _.map(cards, function (card) {
+    return card._id
+  });
+}
 
 module.exports = Deck;
 
