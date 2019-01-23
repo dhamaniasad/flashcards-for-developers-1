@@ -12,6 +12,7 @@ import Octicon from "../../components/Octicon";
 import SkillProgress from "../home/SkillProgress";
 import FeedbackForm from "../home/FeedbackForm";
 import DeckItem from "../home/DeckItem";
+import AddDeckModal from "./AddDeckModal";
 
 class Collections extends Component {
   state = {
@@ -21,6 +22,7 @@ class Collections extends Component {
     isError: false,
     pinnedDecks: [],
     studyProgress: [],
+    showModal: false
   };
 
   componentWillMount() {
@@ -44,6 +46,10 @@ class Collections extends Component {
     analytics.logPinDeckAction(deck.name, isPinned);
 
     this.pinDeck(deck, isPinned);
+  };
+
+  onCloseModal = () => {
+    this.setState({ showModal: false });
   };
 
   sortDecks = (decks = []) => [...decks].sort((a, b) => b.new - a.new);
@@ -146,6 +152,7 @@ class Collections extends Component {
 
     return (
       <div>
+      <AddDeckModal isOpen={this.state.showModal} onClose={this.onCloseModal} />
         <div
           className="collection-header py-4"
           style={{ background: "#f9f9f9", borderBottom: "1px solid #e8e8e8" }}
@@ -191,7 +198,9 @@ class Collections extends Component {
               ))}
             </div>
           ) : (
-            <div className="w-100 text-center my-5 pb-5" style={{ minHeight: "30vh" }}>
+            ""
+          )}
+          <div className="w-100 text-center my-5 pb-5" style={{ minHeight: "30vh" }}>
               <div className="h4" style={{ opacity: 0.8 }}>
                 This collection is currently empty.
               </div>
@@ -199,17 +208,15 @@ class Collections extends Component {
               <div className="row d-flex justify-content-center mt-2 mb-5">
                 <a
                   className="text-dark d-flex align-items-center btn btn-outline-dark px-4"
-                  href={config.airtableSuggestionsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#"
+                  onClick={() => this.setState({ showModal: true })}
                   style={{ borderRadius: "999px" }}
                 >
                   <Octicon className="d-flex mr-2" name="plus" />
-                  <span>Suggest a deck</span>
+                  <span>Add a deck</span>
                 </a>
               </div>
             </div>
-          )}
           <div className="row mt-5">
             <div className="col-md-10 offset-md-1 col-lg-8 offset-lg-2 mt-5">
               <FeedbackForm />
