@@ -29,7 +29,7 @@ class CollectionsHome extends React.Component {
         <h1 className="m-0 mb-3">Collections</h1>
         <div className="row">
           {collections.map(item => (
-            <CollectionItem key={item.id} collection={item} />
+            <CollectionItem key={item._id} collection={item} />
           ))}
         </div>
       </div>

@@ -1,4 +1,4 @@
 _id,author,name,description,type,status
 1,10,CSV Import Test,HELLO WORLD!,Self graded,public
 2,9,CSV Import Test,HELLO WORLD!,Self graded,public
-,9,CSV Import Test,HELLO WORLD!,Self graded,private
+,9,CSV Import Test,HELLO WORLD!,Multiple choice,private

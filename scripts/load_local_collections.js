@@ -39,6 +39,8 @@ const writeCollectionsToDatabase = async (collections, deckIds) => {
       throw new Error(`__decks ids ${missingDecks} from row at line ${i+2} do not exist in database. Exiting...`);
     }
 
+    collection.__decks = decks;
+
     try {
       let res = await Collection.upsert(collection);
       collection._id ? "" : console.log(`New Collection created from row at line ${i+2} because of missing _id column.`);
