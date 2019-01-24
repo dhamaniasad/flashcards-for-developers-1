@@ -18,7 +18,7 @@ module.exports = {
     description: Joi.string().allow(""),
   },
   deleteDeck: {
-    deckId: Joi.objectId().required(),
+    deckId: Joi.number().required(),
   },
   proUser: Joi.string()
     .valid("pro_monthly")

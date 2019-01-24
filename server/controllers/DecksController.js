@@ -89,12 +89,12 @@ module.exports.updateDeck = async (req, res, next) => {
 
 module.exports.deleteDeck = async (req, res, next) => {
   try {
-    const { deckId } = req.params;
+    req.params.deckId = parseInt(req.params.deckId);
+    let { deckId } = req.params;
+
     await Joi.validate(req.params, deckSchemas.deleteDeck);
 
-    await Deck.destroy({ where: { _id: deckId, author: req.user } });
-
-    await Card.destroy({ where: { deck: deckId, author: req.user } });
+    await Deck.update({ deleted: true }, { where: { _id: deckId, author: req.user } });
 
     res.send({ message: "Success! Deck removed." });
   } catch (error) {

@@ -30,7 +30,7 @@ class SettingsSection extends Component {
   onDelete = () => {
     const { deck } = this.props;
     api
-      .deleteDeck(deck.id)
+      .deleteDeck(deck._id)
       .then(response => this.props.onDeleteDeck(response.data))
       .catch(error => console.error(error));
   };

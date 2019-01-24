@@ -16,7 +16,7 @@ const Collection = sequelize.define("collections", {
 
 Collection.prototype.getDecks = async function () {
   var _decks = this.__decks || [];
-  var decks = await Deck.findAll({ where: {_id: {$in: _decks} } });
+  var decks = await Deck.findAll({ where: {_id: {$in: _decks}, deleted: false } });
 
   let decksRes = [];
 
