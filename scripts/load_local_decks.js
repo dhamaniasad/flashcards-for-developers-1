@@ -1,58 +1,60 @@
-const mongoose = require("mongoose");
-
 const Deck = require("../server/models/Deck");
 const Card = require("../server/models/Card");
+const User = require("../server/models/User");
 const config = require("../config/index");
-
-mongoose.set("useFindAndModify", false);
+const neatCsv = require('neat-csv');
+const fs = require("fs");
+const _ = require("lodash");
 
 require("../database/index")();
 
-const getDeckFromRecord = record => ({
-  airtableId: record.id,
-  name: record.get("Name"),
-  description: record.get("Description"),
-  airtableCards: record.get("Cards"),
-  type: record.get("Type"),
-  source: record.get("Source"),
-  difficulty: record.get("Difficulty"),
-  stars: record.get("Stars"),
-  createdTime: record.get("Created time"),
-  upvotes: record.get("Upvotes"),
-  downvotes: record.get("Downvotes"),
-  pro: record.get("Pro") || false,
-  new: record.get("New") || false,
-});
-
-// Load decks data from JSON file
-const decksSeedData = require("../data/decks.json");
-
+// Load decks data from CSV file
 const fetchDecks = async () => {
-  const results = decksSeedData;
+  let csvData = fs.readFileSync("data_sample/decks.csv", "utf8");
+  const results = await neatCsv(csvData);
   return results;
 };
 
 // Creates copy of record in the database
-const writeDecksToDatabase = async decks => {
+const writeDecksToDatabase = async (decks, userIds) => {
 
-  for (const deck of decks) {
-    await Deck.findOneAndUpdate({
-        airtableId: deck.airtableId
-      },
-      deck, {
-        upsert: true
-      },
-    );
+  for (var i = 0; i < decks.length; i++) {
+
+    let deck = decks[i];
+
+    if (deck.author) {
+      deck.author = parseInt(deck.author);
+      if (userIds.indexOf(deck.author) === -1) {
+        throw new Error(`Provided author id ${deck.author} on line ${i+2} does not exist in database. Exiting...`);
+      }
+    } else {
+      throw new Error(`Required field author missing on line ${i+2}. Exiting...`);
+    }
+
+    if (deck._id) {
+      deck._id = parseInt(deck._id);
+    }
+
+    try {
+      let res = await Deck.upsert(deck);
+      console.log(`New Deck created from row at line ${i+2} because of missing _id column.`);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  return await Deck.countDocuments();
+  return decks.length;
 };
 
 async function sync_decks_to_database() {
   try {
+
+    const users = await User.findAll();
+    const userIds = _.map(users, (user) => user._id);
+
     const decks = await fetchDecks();
 
-    const deckCount = await writeDecksToDatabase(decks);
+    const deckCount = await writeDecksToDatabase(decks, userIds);
 
     console.log("Success! Number of decks written: ", deckCount);
   } catch (error) {
@@ -61,3 +63,7 @@ async function sync_decks_to_database() {
 }
 
 module.exports = sync_decks_to_database;
+
+if (require.main === module) {
+  sync_decks_to_database();  
+}
