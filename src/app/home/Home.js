@@ -119,7 +119,7 @@ class Decks extends Component {
 
   handleError = error => console.error(error);
 
-  isPinned = id => this.state.pinnedDecks.find(el => el.id === id);
+  isPinned = id => this.state.pinnedDecks.find(el => el._id === id);
   getDeckProgress = id => this.state.studyProgress.find(el => el.deck === id);
 
   render() {
@@ -202,9 +202,9 @@ class Decks extends Component {
                     {pinnedDecks.slice(0, 4).map(item => (
                       <DeckItem
                         deck={item}
-                        key={item.id}
-                        isPinned={this.isPinned(item.id)}
-                        deckProgress={this.getDeckProgress(item.id)}
+                        key={item._id}
+                        isPinned={this.isPinned(item._id)}
+                        deckProgress={this.getDeckProgress(item._id)}
                         onTogglePin={this.onTogglePin}
                       />
                     ))}

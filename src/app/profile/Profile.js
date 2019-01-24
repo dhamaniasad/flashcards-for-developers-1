@@ -62,7 +62,7 @@ class Profile extends Component {
 
   onTogglePin = (event, deck) => {
     event.preventDefault();
-    const isPinned = this.isPinned(deck.id);
+    const isPinned = this.isPinned(deck._id);
 
     analytics.logPinDeckAction(deck.name, isPinned);
 
@@ -93,7 +93,7 @@ class Profile extends Component {
   togglePinnedDeck = (deck, isPinned) => {
     if (isAuthenticated()) {
       api
-        .togglePinnedDeck(deck.id, isPinned)
+        .togglePinnedDeck(deck._id, isPinned)
         .then(({ data }) => this.setState({ pinnedDecks: data }))
         .catch(this.handleError);
     }
@@ -104,7 +104,7 @@ class Profile extends Component {
   isPageOwner = () =>
     isAuthenticated() &&
     JSON.parse(cookie.get("user")).username === this.props.match.params.username;
-  isPinned = id => this.state.pinnedDecks.find(el => el.id === id);
+  isPinned = id => this.state.pinnedDecks.find(el => el._id === id);
   getDeckProgress = id => this.state.studyProgress.find(el => el.deck === id);
 
   render() {

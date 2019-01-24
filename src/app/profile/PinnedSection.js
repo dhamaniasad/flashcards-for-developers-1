@@ -7,7 +7,7 @@ import Octicon from "../../components/Octicon";
 import DeckItem from "../home/DeckItem";
 
 class PinnedSection extends Component {
-  isPinned = id => this.props.pinnedDecks.find(el => el.id === id);
+  isPinned = id => this.props.pinnedDecks.find(el => el._id === id);
   getDeckProgress = id => this.props.studyProgress.find(el => el.deck === id);
 
   render() {

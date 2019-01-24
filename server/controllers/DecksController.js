@@ -15,8 +15,8 @@ module.exports.getDecks = async (req, res, next) => {
     await Joi.validate(req.query, deckSchemas.getDecksQuery);
 
     if (collectionId) {
-      const collection = await Collection.findOne({ _id: collectionId }).populate("decks");
-      decks = collection.decks;
+      const collection = await Collection.findOne({ where: { _id: collectionId } })
+      decks = await collection.getDecks();
     } else {
       decks = await Deck.findAll({ status: { $ne: "private" } });
     }
