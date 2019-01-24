@@ -10,7 +10,7 @@ module.exports = {
   },
   createCollection: {
   	name: Joi.string().required(),
-  	description: Joi.string().required(),
+  	description: Joi.string(),
   	emoji: Joi.string().required(),
   	color: Joi.string().length(6).hex()
   },
