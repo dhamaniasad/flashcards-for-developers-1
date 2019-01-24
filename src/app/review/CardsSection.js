@@ -42,7 +42,7 @@ class CardsSection extends Component {
   onDeleteCard = cardId => {
     api
       .deleteCard(cardId)
-      .then(response => this.setState({ cards: this.state.cards.filter(el => el.id !== cardId) }))
+      .then(response => this.setState({ cards: this.state.cards.filter(el => el._id !== cardId) }))
       .catch(error => console.log(error));
   };
 
@@ -95,7 +95,7 @@ class CardsSection extends Component {
                       this.tooltip = c;
                     }}
                     overlay={
-                      <CardTooltip isOwner={isOwner} onDelete={() => this.onDeleteCard(card.id)} />
+                      <CardTooltip isOwner={isOwner} onDelete={() => this.onDeleteCard(card._id)} />
                     }
                     id="tooltip-white"
                   >

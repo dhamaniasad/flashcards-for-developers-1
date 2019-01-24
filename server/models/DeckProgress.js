@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require("../../database/index")();
 const CardProgress = require("./CardProgress");
+const Card = require("./Card");
 const _ = require("lodash");
 
 const DeckProgress = sequelize.define("deckprogress", {
@@ -45,6 +46,8 @@ const DeckProgress = sequelize.define("deckprogress", {
 
 DeckProgress.prototype.getCards = async function () {
   var _cards = this.__cards;
+  _cards = await Card.findAll({ where: { _id: { $in: _cards }, deleted: false } });
+  _cards = _.map(_cards, (_card) => _card._id);
   var cards = await CardProgress.findAll({ where: {_id: {$in: _cards} } });
   cards = _.map(cards, (card) => {
   	return card.dataValues;

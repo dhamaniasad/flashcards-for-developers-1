@@ -17,15 +17,15 @@ module.exports.getCards = async (req, res, next) => {
 
     if (collectionId === "pinned") {
       const user = await User.findOne({ where: {_id: req.user } });
-      cards = await Card.findAll({ where: { deck: { $in: [] } } });
+      cards = await Card.findAll({ where: { deck: { $in: [] }, deleted: false } });
     } else if (collectionId) {
       const collection = await Collection.findOne({ _id: collectionId });
-      cards = await Card.findAll({ deck: { $in: collection.decks } });
+      cards = await Card.findAll({ where: { deck: { $in: collection.decks }, deleted: false } });
     } else if (deckIds && deckIds.length > 0) {
-      cards = await Card.findAll({ where: {deck: { $in: deckIds } } }).populate("deck");
+      cards = await Card.findAll({ where: {deck: { $in: deckIds }, deleted: false } }).populate("deck");
       // cards = await Card.findAll({ where: {deck: { $in: deckIds } } }).populate("deck");
     } else if (deckId) {
-      cards = await Card.findAll({ where: {deck: deckId } });
+      cards = await Card.findAll({ where: { deck: deckId, deleted: false } });
     }
 
     res.send(cards);
@@ -65,10 +65,11 @@ module.exports.deleteCard = async (req, res, next) => {
     const { cardId } = req.params;
     await Joi.validate(req.params, cardSchemas.deleteCard);
 
-    await Card.deleteOne({ _id: cardId, author: req.user });
+    await Card.update({ deleted: true } ,{ where: { _id: cardId, author: req.user }});
 
     res.send({ message: "Success! Card removed." });
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };

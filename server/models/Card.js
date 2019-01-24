@@ -8,7 +8,8 @@ const Card = sequelize.define("cards", {
   front: { type: Sequelize.TEXT, allowNull: false },
   back: { type: Sequelize.TEXT },
   createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE
+  updatedAt: Sequelize.DATE,
+  deleted: { type: Sequelize.BOOLEAN, defaultValue: false }
 });
 
 module.exports = Card;

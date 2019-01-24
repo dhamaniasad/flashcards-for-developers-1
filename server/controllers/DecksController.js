@@ -18,7 +18,7 @@ module.exports.getDecks = async (req, res, next) => {
       const collection = await Collection.findOne({ where: { _id: collectionId } })
       decks = await collection.getDecks();
     } else {
-      decks = await Deck.findAll({ status: { $ne: "private" } });
+      decks = await Deck.findAll({ where: {} });
     }
 
     res.send(decks);

@@ -24,7 +24,7 @@ const Deck = sequelize.define("decks", {
 });
 
 Deck.prototype.getCards = async function () {
-  let cards = await Card.findAll({ where: { deck: this._id } });
+  let cards = await Card.findAll({ where: { deck: this._id, deleted: false } });
   return _.map(cards, function (card) {
     return card._id
   });
