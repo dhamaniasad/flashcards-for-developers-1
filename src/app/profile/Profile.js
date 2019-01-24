@@ -125,6 +125,9 @@ class Profile extends Component {
             <div className="d-flex flex-column-reverse flex-lg-row justify-content-between align-items-lg-center">
               <div className="d-flex align-items-center">
                 <div className="profile-image rounded position-relative bg-light my-2">
+                <div className="header-image d-flex align-items-center justify-content-center rounded rounded-circle bg-primary" style={{height: "100%"}}>
+                  <span role="img" aria-label="Placeholder profile image" style={{marginRight: 3.5, marginTop: 1, fontSize: 50}}>🐤</span>
+                </div>
                   {profile.avatar_url && (
                     <img
                       className="profile-image rounded"

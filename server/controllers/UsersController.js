@@ -306,13 +306,14 @@ module.exports.updateProfile = async (req, res, next) => {
 
     await Joi.validate(req.body, userSchemas.updateUserProfile);
 
-    const user = await User.findOneAndUpdate(
-      { _id: req.user },
-      { $set: { name, email, email_notification, username } },
-      { new: true },
+    const user = await User.update(
+      { name, email, email_notification: false, username },
+      { where: { _id: req.user } },
     );
 
-    res.send(user);
+    let updatedUser = await User.findOne({ where: { _id: req.user } });
+
+    res.send(updatedUser);
   } catch (error) {
     next(error);
   }
@@ -391,7 +392,7 @@ module.exports.getUserActivity = async (req, res, next) => {
     const reviews = await ReviewEvent.findAll({ where: { user: user._id } });
     const studyDates = [...new Set(reviews.map(el => moment(el.createdAt).format("YYYY-DD-MM")))];
     const cardProgresses = await CardProgress.findAll({ where: { user: user._id } });
-    const masteredCards = await CardProgress.findAll({ where: { user: user._id, leitnerBox: { $gt: 5 } } });
+    const masteredCards = await CardProgress.findAll({ where: { user: user._id, leitnerBox: { gt: 6 } } });
 
     const currentStreak = streaks.getCurrentStreak(studyDates);
     const longestStreak = streaks.getLongestStreak(studyDates);

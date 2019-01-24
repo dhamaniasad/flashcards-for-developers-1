@@ -212,18 +212,7 @@ class SignupFormModal extends Component {
                   value={profile.password || ""}
                 />
               </div>
-              <div className="d-flex align-items-center mb-2">
-                <input
-                  type="checkbox"
-                  name="email_notification"
-                  onChange={() => this.onToggle("email_notification")}
-                  checked={profile.email_notification}
-                />
-                <label className="ml-2 small m-0">
-                  Notify me about upcoming flashcards & news.
-                </label>
-              </div>
-              <div className="mt-5 pt-5">
+              <div className="mt-3 pt-3">
                 <button className="btn btn-dark btn-sm font-weight-medium py-2 w-100">
                   SIGN UP
                 </button>

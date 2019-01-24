@@ -161,7 +161,7 @@ class Settings extends Component {
               <hr className={errors.name ? "border-danger" : ""} />
             </div>
           </div>
-          <div className="row">
+{/*          <div className="row">
             <div className="col-sm-2 col-lg-1">
               <small className="text-muted">Avatar</small>
             </div>
@@ -174,7 +174,7 @@ class Settings extends Component {
               />
               <hr />
             </div>
-          </div>
+          </div>*/}
           <div className="row">
             <div className="col-sm-2 col-lg-1">
               <small className={errors.email ? "text-danger" : "text-muted"}>Email</small>
@@ -218,7 +218,7 @@ class Settings extends Component {
               <hr className={errors.username ? "border-danger" : ""} />
             </div>
           </div>
-          <div className="row">
+{/*          <div className="row">
             <div className="col-sm-2 col-lg-1">
               <small className="text-muted">Newsletter</small>
             </div>
@@ -237,7 +237,7 @@ class Settings extends Component {
               </div>
               <hr />
             </div>
-          </div>
+          </div>*/}
           <div className="d-flex align-items-center mt-2">
             <button
               className="btn btn-outline-primary btn-sm font-weight-medium px-2"
@@ -263,7 +263,7 @@ class Settings extends Component {
             )}
           </div>
         </form>
-        <div className="border rounded p-3 d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between">
+{/*        <div className="border rounded p-3 d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between">
           <div className="d-flex flex-column justify-content-center">
             <span className="font-weight-medium m-0">Delete my account</span>
             <span className="text-muted small">
@@ -273,7 +273,7 @@ class Settings extends Component {
           <button onClick={this.onOpenModal} className="btn btn-sm btn-outline-danger px-2 my-2">
             Delete account
           </button>
-        </div>
+        </div>*/}
       </div>
     );
   }
