@@ -2,6 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 
 import authAxios from "./utils/authAxios";
+const _ = require("lodash");
 
 /* Search related endpoints */
 export const searchContent = search => {
@@ -106,14 +107,17 @@ export const deleteProfile = () => {
 };
 
 export const removePinnedDeck = deckId => {
-  return authAxios.delete("/users/pinned_decks", { data: { deck: deckId } });
+  return authAxios.delete("/users/pinned_decks", { data: { deck: parseInt(deckId) } });
 };
 
 export const addPinnedDecks = deckIds => {
+  deckIds = _.map(deckIds, (_id) => parseInt(_id));
+  console.log("deckIds", deckIds);
   return authAxios.put("/users/pinned_decks", { decks: [...deckIds] });
 };
 
 export const togglePinnedDeck = (deckId, isPinned) => {
+  console.log(deckId);
   return isPinned ? removePinnedDeck(deckId) : addPinnedDecks([deckId]);
 };
 

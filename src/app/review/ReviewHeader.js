@@ -29,11 +29,11 @@ class ReviewHeader extends React.Component {
     if (!isAuthenticated()) {
       this.setState({ showModal: true });
     } else {
-      const isPinned = this.isPinned(deck.id);
+      const isPinned = this.isPinned(deck._id);
       analytics.logPinDeckAction(deck.name, isPinned);
 
       api
-        .togglePinnedDeck(deck.id, isPinned)
+        .togglePinnedDeck(deck._id, isPinned)
         .then(response => this.setState({ pinnedDecks: response.data }))
         .catch(this.handleError);
     }
@@ -45,12 +45,12 @@ class ReviewHeader extends React.Component {
     });
   };
 
-  isPinned = id => this.state.pinnedDecks.find(el => el.id === id);
+  isPinned = id => this.state.pinnedDecks.find(el => el._id === id);
   isCollectionPage = () => this.props.match.path === "/collections/:collectionId/review";
 
   render() {
     const { deck, className } = this.props;
-    const isPinned = this.isPinned(deck.id);
+    const isPinned = this.isPinned(deck._id);
     return (
       <div className={className}>
         <LoginModal isOpen={this.state.showModal} onClose={this.onCloseModal} />

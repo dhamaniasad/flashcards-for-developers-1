@@ -47,11 +47,11 @@ module.exports = {
   },
   addPinnedDecks: {
     decks: Joi.array()
-      .items(Joi.objectId())
+      .items(Joi.number())
       .required(),
   },
   removePinnedDeck: {
-    deck: Joi.objectId().required(),
+    deck: Joi.number().required(),
   },
   addStudySessions: {
     dates: Joi.array()

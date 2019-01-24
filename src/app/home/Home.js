@@ -45,11 +45,11 @@ class Decks extends Component {
     if (!isAuthenticated()) {
       this.setState({ showModal: true });
     } else {
-      const isPinned = this.isPinned(deck.id);
+      const isPinned = this.isPinned(deck._id);
       analytics.logPinDeckAction(deck.name, isPinned);
 
       api
-        .togglePinnedDeck(deck.id, isPinned)
+        .togglePinnedDeck(deck._id, isPinned)
         .then(response => this.setState({ pinnedDecks: response.data }))
         .catch(this.handleError);
     }

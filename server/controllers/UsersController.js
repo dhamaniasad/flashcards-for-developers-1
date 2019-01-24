@@ -189,14 +189,11 @@ module.exports.postStripeCharge = async (req, res, next) => {
 
 module.exports.getPinnedDecks = async (req, res, next) => {
   try {
-        const user = await User.findOne({ where: { _id: req.user } })
-            // .select("+saved_decks")
-            // .populate("saved_decks");
+    const user = await User.findOne({ where: { _id: req.user } });
 
-        // res.send(user.saved_decks);
+    let decks = await user.saved_decks();
 
-    // res.send(user.saved_decks);
-    res.send([]);
+    res.send(decks);
   } catch (error) {
     next(error);
   }
@@ -208,16 +205,22 @@ module.exports.addPinnedDecks = async (req, res, next) => {
 
     const { decks } = req.body;
 
-    const user = await User.findOneAndUpdate(
-      { _id: req.user },
-      { $addToSet: { saved_decks: decks } },
-      { new: true },
-    )
-      .select("+saved_decks")
-      .populate("saved_decks");
+    let _user = await User.findOne({ where: { _id: req.user } });
 
-    res.send(user.saved_decks);
+    let _decks = _.uniq(_.concat(_user.__saved_decks, decks));
+
+    const user = await User.update(
+      { __saved_decks: _decks },
+      { where: { _id: req.user } },
+    );
+
+    await _user.reload();
+
+    let userDecks = await _user.saved_decks();
+
+    res.send(userDecks);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
@@ -228,16 +231,22 @@ module.exports.removePinnedDeck = async (req, res, next) => {
 
     const { deck } = req.body;
 
-    const user = await User.findOneAndUpdate(
-      { _id: req.user },
-      { $pull: { saved_decks: deck } },
-      { new: true },
-    )
-      .select("+saved_decks")
-      .populate("saved_decks");
+    let _user = await User.findOne({ where: { _id: req.user } });
 
-    res.send(user.saved_decks);
+    let _decks = _.uniq(_.pull(_user.__saved_decks, deck));
+
+    const user = await User.update(
+      { __saved_decks: _decks },
+      { where: { _id: req.user } },
+    );
+
+    await _user.reload();
+
+    let userDecks = await _user.saved_decks();
+
+    res.send(userDecks);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
