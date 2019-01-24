@@ -9,15 +9,16 @@ const escapeRegex = text => {
 
 module.exports.searchContent = async (req, res, next) => {
   try {
-    const { text } = req.query;
+    let { text } = req.query;
+    text = text ? ("%" + text + "%") : "%";
 
     await Joi.validate(req.query, searchSchemas.searchContent);
 
     const status = { $ne: "private" }; // hide private
     const regex = new RegExp(escapeRegex(text), "gi");
-    const query = text !== "*" ? { name: regex, description: regex } : {};
+    const query = { $or: { name: {$like: text}, description: {$like: text} } };
 
-    const decks = await Deck.findAll({ where: { status, ...query } }, { limit: 10 });
+    const decks = await Deck.findAll({ where: { ...query } }, { limit: 10 });
 
     res.send(decks);
   } catch (error) {

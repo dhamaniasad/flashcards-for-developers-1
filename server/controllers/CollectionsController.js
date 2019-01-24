@@ -15,12 +15,17 @@ module.exports.getCollections = async (req, res, next) => {
     const collections = search
       ? await Collection.findAll({ where: { name: search } })
       : await Collection.findAll({ where: {} });
-      // TODO: FIX
-    // const collections = search
-    //   ? await Collection.find({ name: search }).populate("decks")
-    //   : await Collection.find({ hidden: { $ne: true } });
 
-    res.send(collections);
+    let response = [];
+
+    for (var i = 0; i < collections.length; i++) {
+      let collection = collections[i];
+      let decks = await collection.getDecks();
+      let data = { ...collection.dataValues, decks: decks };
+      response.push(data);
+    }
+
+    res.send(response);
   } catch (error) {
     console.error(error);
     next(error);

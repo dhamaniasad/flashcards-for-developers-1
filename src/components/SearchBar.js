@@ -82,7 +82,7 @@ class SearchBar extends Component {
               content.length > 0 && (
                 <div className="text-dark d-flex flex-column py-2">
                   {content.slice(0, 6).map(el => (
-                    <Link to={`/decks/${el.id}`} className="py-2 px-3 text-dark" key={el.id}>
+                    <Link to={`/decks/${el._id}`} className="py-2 px-3 text-dark" key={el._id}>
                       {el.name}
                     </Link>
                   ))}

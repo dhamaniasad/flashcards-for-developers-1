@@ -375,7 +375,6 @@ module.exports.getUserPinnedDecks = async (req, res, next) => {
 };
 
 module.exports.getUserActivity = async (req, res, next) => {
-  // todo: fix
   try {
     const { username } = req.params;
 

@@ -96,7 +96,6 @@ module.exports.getDeckProgress = async (req, res, next) => {
     await Joi.validate(req.user, progressSchemas.user);
     await Joi.validate(req.params, progressSchemas.getDeckProgress.params);
     return res.send([]);
-    // TODO: FIX
     const deckProgress = await DeckProgress.findOne({
       where: {
         deck: deckId,
