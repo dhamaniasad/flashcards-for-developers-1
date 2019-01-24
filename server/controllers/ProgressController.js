@@ -96,14 +96,21 @@ module.exports.getDeckProgress = async (req, res, next) => {
     await Joi.validate(req.user, progressSchemas.user);
     await Joi.validate(req.params, progressSchemas.getDeckProgress.params);
     
-    const deckProgress = await DeckProgress.findOne({
+    let deckProgress = await DeckProgress.findOne({
       where: {
         deck: deckId,
         user: req.user,
       }
     });
 
-    let cards = await deckProgress.getCards();
+    let cards;
+
+    if (deckProgress) {
+      cards = await deckProgress.getCards();
+    } else {
+      deckProgress = { dataValues: { } };
+      cards = [];
+    }
 
     res.send({ ...deckProgress.dataValues, cards: cards });
   } catch (error) {
@@ -164,7 +171,14 @@ module.exports.addCardProgress = async (req, res, next) => {
 
     deckProgress = await DeckProgress.findOne({ where: { deck: deckId, user: user } });
 
-    let cards = await deckProgress.getCards();
+    let cards;
+
+    if (deckProgress) {
+      cards = await deckProgress.getCards();
+    } else {
+      deckProgress = { dataValues: { } };
+      cards = [];
+    }
 
     // Log review event
     await ReviewEvent.create({ user: user, card: cardId });
