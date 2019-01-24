@@ -46,12 +46,16 @@ const DeckProgress = sequelize.define("deckprogress", {
 
 DeckProgress.prototype.getCards = async function () {
   var _cards = this.__cards;
-  _cards = await Card.findAll({ where: { _id: { $in: _cards }, deleted: false } });
-  _cards = _.map(_cards, (_card) => _card._id);
+  // Ignore deleted cards
+  let deletedCards = await Card.findAll({ where: { deleted: true } });
+  deletedCards = _.map(deletedCards, (card) => card._id);
   var cards = await CardProgress.findAll({ where: {_id: {$in: _cards} } });
   cards = _.map(cards, (card) => {
-  	return card.dataValues;
+  	if (deletedCards.indexOf(card._id) === -1) {
+  		return card.dataValues;  		
+  	}
   });
+  cards = _.compact(cards);
   return cards;
 }
 

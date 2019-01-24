@@ -18,7 +18,7 @@ module.exports.getDecks = async (req, res, next) => {
       const collection = await Collection.findOne({ where: { _id: collectionId } })
       decks = await collection.getDecks();
     } else {
-      decks = await Deck.findAll({ where: {} });
+      decks = await Deck.findAll({ where: { deleted: false } });
     }
 
     res.send(decks);
@@ -109,9 +109,9 @@ module.exports.getDecksForUser = async (req, res, next) => {
 
     const user = await User.findOne({ where: { username }});
     if (req.user !== user._id) {
-      decks = await Deck.findAll({ where: { author: user._id, status: { $ne: "private" } } });
+      decks = await Deck.findAll({ where: { author: user._id, status: { $ne: "private" }, deleted: false } });
     } else {
-      decks = await Deck.findAll({ where: { author: user._id } });
+      decks = await Deck.findAll({ where: { author: user._id, deleted: false } });
     }
 
     let resDecks = [];
