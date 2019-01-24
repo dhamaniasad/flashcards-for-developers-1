@@ -10,7 +10,7 @@ require("../database/index")();
 
 // Load collections data from CSV file
 const fetchCards = async () => {
-  let csvData = fs.readFileSync("data_sample/cards.csv", "utf8");
+  let csvData = fs.readFileSync("data/cards.csv", "utf8");
   const results = await neatCsv(csvData);
   return results;
 };

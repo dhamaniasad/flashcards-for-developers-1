@@ -10,7 +10,7 @@ require("../database/index")();
 
 // Load decks data from CSV file
 const fetchDecks = async () => {
-  let csvData = fs.readFileSync("data_sample/decks.csv", "utf8");
+  let csvData = fs.readFileSync("data/decks.csv", "utf8");
   const results = await neatCsv(csvData);
   return results;
 };
