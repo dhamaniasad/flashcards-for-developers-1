@@ -58,7 +58,7 @@ module.exports.getDeck = async (req, res, next) => {
 
     let cards = await deck.getCards();
 
-    res.send({ ...deck, cards: cards });
+    res.send({ ...deck.dataValues, cards: cards });
   } catch (error) {
     console.error(error);
     next(error);
