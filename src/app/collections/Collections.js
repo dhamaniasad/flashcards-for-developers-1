@@ -40,7 +40,7 @@ class Collections extends Component {
 
   onTogglePin = (event, deck) => {
     event.preventDefault();
-    const isPinned = this.isPinned(deck.id);
+    const isPinned = this.isPinned(deck._id);
 
     analytics.logPinDeckAction(deck.name, isPinned);
 
@@ -104,17 +104,17 @@ class Collections extends Component {
     const { decks } = this.state;
     if (isAuthenticated()) {
       api
-        .togglePinnedDeck(deck.id, isPinned)
+        .togglePinnedDeck(deck._id, isPinned)
         .then(({ data }) =>
           this.setState({ pinnedDecks: data, decks: this.isPinnedDecksPage() ? data : decks }),
         )
         .catch(this.handleError);
     } else {
-      this.setState({ pinnedDecks: localStorage.togglePinnedDeck(deck.id, isPinned) });
+      this.setState({ pinnedDecks: localStorage.togglePinnedDeck(deck._id, isPinned) });
     }
   };
 
-  isPinned = id => this.state.pinnedDecks.find(el => el.id === id || el === id);
+  isPinned = id => this.state.pinnedDecks.find(el => el._id === id || el === id);
   isPinnedDecksPage = () => this.props.match.params.collectionId === "pinned";
   getDeckProgress = id => this.state.studyProgress.find(el => el.deck === id);
 
