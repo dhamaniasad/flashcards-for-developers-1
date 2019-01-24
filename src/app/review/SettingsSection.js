@@ -18,7 +18,7 @@ class SettingsSection extends Component {
     const { deck } = this.props;
     const { name, description } = this.state;
     api
-      .updateDeck({ deckId: deck.id, name, description })
+      .updateDeck({ deckId: deck._id, name, description })
       .then(response => this.props.onUpdateDeck(response.data))
       .catch(error => console.error(error));
   };

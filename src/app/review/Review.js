@@ -212,7 +212,7 @@ class Review extends Component {
   isDeckOwner = () => {
     const { deck } = this.state;
     const user = isAuthenticated() ? JSON.parse(cookie.get("user")) : {};
-    return isAuthenticated() && deck.author === user.id;
+    return isAuthenticated() && deck.author === user._id;
   };
 
   render() {

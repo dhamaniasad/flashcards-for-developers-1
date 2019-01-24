@@ -20,7 +20,8 @@ const Deck = sequelize.define("decks", {
   new: Sequelize.BOOLEAN,
   pro: { type: Sequelize.BOOLEAN },
   createdAt: Sequelize.DATE,
-  updatedAt: Sequelize.DATE
+  updatedAt: Sequelize.DATE,
+  deleted: { type: Sequelize.BOOLEAN, defaultValue: false }
 });
 
 Deck.prototype.getCards = async function () {

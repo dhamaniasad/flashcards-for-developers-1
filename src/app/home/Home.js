@@ -63,7 +63,7 @@ class Decks extends Component {
   sortDecks = (decks = []) => [...decks].sort((a, b) => b.new - a.new);
 
   fetchDecks = collection => {
-    api.fetchDecks(collection.id).then(
+    api.fetchDecks(collection._id).then(
       ({ data }) => {
         this.setState({ decks: this.sortDecks(data), isLoading: false });
       },

@@ -68,18 +68,21 @@ module.exports.getDeck = async (req, res, next) => {
 module.exports.updateDeck = async (req, res, next) => {
   try {
     const { name, description } = req.body;
-    const { deckId } = req.params;
+    let { deckId } = req.params;
+    deckId = parseInt(deckId);
 
     await Joi.validate(req.body, deckSchemas.updateDeck);
 
-    const deck = await Deck.findOneAndUpdate(
-      { _id: deckId, author: req.user },
-      { $set: { name, description } },
-      { new: true },
+    const deck = await Deck.update(
+      { name, description },
+      { where: { _id: deckId, author: req.user } }
     );
 
-    res.send(deck);
+    let updatedDeck = await Deck.findOne({ where: { _id: deckId } });
+
+    res.send(updatedDeck);
   } catch (error) {
+    console.error(error);
     next(error);
   }
 };
@@ -89,9 +92,9 @@ module.exports.deleteDeck = async (req, res, next) => {
     const { deckId } = req.params;
     await Joi.validate(req.params, deckSchemas.deleteDeck);
 
-    await Deck.deleteOne({ _id: deckId, author: req.user });
+    await Deck.destroy({ where: { _id: deckId, author: req.user } });
 
-    await Card.deleteMany({ deck: deckId, author: req.user });
+    await Card.destroy({ where: { deck: deckId, author: req.user } });
 
     res.send({ message: "Success! Deck removed." });
   } catch (error) {
