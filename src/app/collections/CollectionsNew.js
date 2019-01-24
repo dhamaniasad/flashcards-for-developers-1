@@ -22,16 +22,16 @@ class DecksNew extends Component {
     if (isProMember()) {
       api
         .createCollection({ name, description, emoji, color })
-        // .then(response => this.setState({ isRedirect: true, deck: response.data }))
+        .then(response => this.setState({ isRedirect: true, collection: response.data }))
         // .catch(error => console.log(error));
     }
   };
 
   render() {
-    const { name, description, deck, isRedirect, emoji, color } = this.state;
+    const { name, description, deck, isRedirect, emoji, color, collection } = this.state;
 
-    if (isRedirect && Object.keys(deck).length > 0) {
-      return <Redirect to={`/decks/${deck._id}/cards`} />;
+    if (isRedirect && Object.keys(collection).length > 0) {
+      return <Redirect to={`/collections/${collection._id}`} />;
     }
 
     return (
@@ -111,9 +111,9 @@ class DecksNew extends Component {
                   <label className="small font-weight-bold mb-1">
                     Choose a collection color
                   </label>
-                  <p>
+                  <div className="pt-3">
                     <SliderPicker styles={{ default: { wrap: {} } }} color={color} onChange={this.handleColorChangeComplete} />
-                  </p>
+                  </div>
                   <input
                     type="text"
                     name="color"
@@ -121,6 +121,7 @@ class DecksNew extends Component {
                     placeholder={`#`}
                     value={color}
                     required={true}
+                    readOnly={true}
                   />
                 </div>
                 <button
