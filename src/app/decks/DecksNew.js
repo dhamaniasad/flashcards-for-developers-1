@@ -6,24 +6,26 @@ import Octicon from "../../components/Octicon";
 import isProMember from "../utils/isProMember";
 
 class DecksNew extends Component {
-  state = { name: "", description: "", deck: {}, isRedirect: false };
+  state = { name: "", description: "", deck: {}, isRedirect: false, mcq: false };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
+  onToggleMcq = () => this.setState({ mcq: !this.state.mcq });
+
   onSubmit = e => {
     e.preventDefault();
-    const { name, description } = this.state;
+    const { name, description, mcq } = this.state;
 
     if (isProMember()) {
       api
-        .createDeck({ name, description })
+        .createDeck({ name, description, mcq })
         .then(response => this.setState({ isRedirect: true, deck: response.data }))
         .catch(error => console.log(error));
     }
   };
 
   render() {
-    const { name, description, deck, isRedirect } = this.state;
+    const { name, description, deck, isRedirect, mcq } = this.state;
 
     if (isRedirect && Object.keys(deck).length > 0) {
       return <Redirect to={`/decks/${deck._id}/cards`} />;
@@ -79,7 +81,27 @@ class DecksNew extends Component {
                     value={description}
                   />
                 </div>
-                <div className="d-flex align-items-center mb-3 mt-4">
+                <div className="form-group mb-4">
+                  <label className="small font-weight-bold mb-1">
+                    Set deck as MCQ style? <span className="text-muted">(optional)</span>
+                  </label>
+                  <div className="col-sm-10 col-lg-11">
+                    <div className="d-flex align-items-center my-1">
+                      <input
+                        className="small border-0 py-2"
+                        type="checkbox"
+                        name="mcq"
+                        onChange={this.onToggleMcq}
+                        checked={mcq}
+                      />
+                      <label className="ml-2 small m-0 text-muted font-weight-medium">
+                        Use MCQ Style
+                      </label>
+                    </div>
+                    <hr />
+                  </div>
+                </div>
+{/*                <div className="d-flex align-items-center mb-3 mt-4">
                   <div>
                     <Octicon name="lock" width={24} height={30} fill="#b9ad87" className="d-flex" />
                   </div>
@@ -91,7 +113,7 @@ class DecksNew extends Component {
                       You are the only one who can see and study to this deck.
                     </small>
                   </div>
-                </div>
+                </div>*/}
                 <button
                   className="btn btn-dark btn-sm font-weight-medium py-2 w-100"
                   type="submit"

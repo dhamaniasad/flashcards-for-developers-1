@@ -29,13 +29,19 @@ module.exports.getDecks = async (req, res, next) => {
 
 module.exports.createDeck = async (req, res, next) => {
   try {
-    const { name, description } = req.body;
+    const { name, description, mcq } = req.body;
     const user = await User.findOne({ where: {_id: req.user } });
 
     await Joi.validate(req.body, deckSchemas.createDeck);
     await Joi.validate(user.user_plan, deckSchemas.proUser);
 
-    const deck = await Deck.create({ name, description, status: "private", author: user._id });
+    let newDeckDoc = { name, description, status: "private", author: user._id };
+
+    if (mcq) {
+      newDeckDoc.type = "Multiple select";
+    }
+
+    const deck = await Deck.create(newDeckDoc);
 
     res.send(deck);
   } catch (error) {

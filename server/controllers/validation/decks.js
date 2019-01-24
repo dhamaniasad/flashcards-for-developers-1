@@ -9,6 +9,7 @@ module.exports = {
   createDeck: {
     name: Joi.string().required(),
     description: Joi.string().allow(""),
+    mcq: Joi.boolean()
   },
   getDeckParams: {
     deckId: Joi.number().required(),
