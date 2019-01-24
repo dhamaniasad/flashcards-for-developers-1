@@ -37,7 +37,7 @@ const writeDecksToDatabase = async (decks, userIds) => {
 
     try {
       let res = await Deck.upsert(deck);
-      console.log(`New Deck created from row at line ${i+2} because of missing _id column.`);
+      deck._id ? "" : console.log(`New Deck created from row at line ${i+2} because of missing _id column.`);
     } catch (err) {
       console.error(err);
     }

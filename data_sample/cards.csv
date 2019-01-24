@@ -1,0 +1,3 @@
+_id,deck,front,back,author
+10,7,how would you print hello world in ruby?,"`puts ""Hello world""`",9
+9,7,how would you print hello world in python?,"`print(""hello world"")`",9
