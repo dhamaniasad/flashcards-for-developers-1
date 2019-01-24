@@ -15,6 +15,12 @@ cd flashcards-for-developers
 
 Install dependencies and run the web application and server application seperately.
 
+Before starting the app, don't forget to set your `NODE_ENV` environment variable.
+
+```bash
+export NODE_ENV=development
+```
+
 ```sh
 yarn install
 yarn web
@@ -38,6 +44,16 @@ Environment variables are set by adding files like `.env` which should not be ch
 - `.env.development.local`, `.env.test.local`, `.env.production.local`: Local overrides of environment-specific settings.
 
 For more information check the [`create-react-app` docs](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-development-environment-variables-in-env).
+
+## Database Migrations
+
+You need to run database migrations to bring the database schema up to date with the current state of the project. You can use the following command to run the migrations:
+
+```bash
+node_modules/.bin/sequelize db:migrate
+```
+
+#### Note: It's generally a good idea to run the above command anytime you pull some changes from the repo, just in case the schema has changed.
 
 ## Available Scripts
 
@@ -78,29 +94,19 @@ See the section about [deployment](#deployment) for more information.
 
 Builds the React app for production and runs the server so the the app is ready to be deployed.
 
-## Syncing with Airtable
+## Syncing with local CSV files
 
-The database uses Airtable to manage our content. We have three records that we sync from Airtable: `Collections`, `Decks`, and `Cards`. If Airtable is updated, the changes will have to be synced to the database. There are three scripts provided in the `scripts/` folder to sync these records:
-
-- `sync_cards.js`
-- `sync_collections.js`
-- `sync_decks.js`
-
-Running these scripts will fetch the data from Airtable and **OVERWRITE** the records in the database. The database can be changed through environment variables. The default environment is `development`.
-
-**Example:**
-
-```bash
-node scripts/sync_cards.js
-```
-
-## Syncing with local JSON files
-
-You can also sync the database with content from JSON files. The sample syntax for the JSON files is shown in the `data_sample` folder.
+You can sync the database with content from CSV files. The sample syntax for the CSV files is shown in the `data_sample` folder.
 
 **Usage:**
 
-First put your JSON files into the `data` folder. The files will be ignored by Git. Then run the script below.
+First put your CSV files into the `data` folder. The files will be ignored by Git.
+
+```bash
+cp data_sample/*.csv data/
+```
+
+Then run the script below.
 
 ```bash
 node scripts/seed_db_locally.js
@@ -116,17 +122,18 @@ Note that running the script will **OVERWRITE** the records in the database. The
 		- Cards
 
 Please refer to the `data_sample` directory for schema reference. 
+You can copy the sampel data from 
 
 ### Relationships
 
 #### Collections
-Collections hold references to decks that belong to the collection in an key `decks` which is an array. The items in the array are of type `mongoose.Types.ObjectId`.
+Collections hold references to decks that belong to the collection in an key `decks` which is a JSON array.
 
 #### Decks
-Cards hold a reference to the deck they belong to in the key `deck` of type `mongoose.Types.ObjectId`.
+Cards hold a reference to the deck they belong to in the key `deck` of type `Integer ForeignKey`.
 
 #### Cards
-Cards hold a reference to the deck they belong to in the key `deck` of type `mongoose.Types.ObjectId`.
+Cards hold a reference to the deck they belong to in the key `deck` of type `Integer ForeignKey`.
 
 ## Contributing
 
@@ -135,14 +142,3 @@ Interested in contributing? Contact [@nlaz](https://github.com/nlaz) for help to
 ## License
 
 This project is [MIT licensed](./LICENSE.md).
-
-
-# TODO
-
-## Database Migrations
-
-To migrate the database, run the following command
-
-```bash
-node_modules/.bin/sequelize db:migrate
-```

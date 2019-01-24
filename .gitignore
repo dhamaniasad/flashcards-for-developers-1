@@ -25,3 +25,4 @@ yarn-error.log*
 
 data/*.json
 data/*.db
+data/*.csv
