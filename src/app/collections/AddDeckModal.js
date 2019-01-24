@@ -9,12 +9,8 @@ import cookie from "js-cookie";
 import * as api from "../apiActions";
 import * as localStorage from "../utils/localStorage";
 import DeckItem from "../home/DeckItem";
-
-const GITHUB_PARAMS = qs.stringify({
-  client_id: config.githubOAuthClientId,
-  redirect_uri: config.githubOAuthRedirectURI
-});
-const GITHUB_OAUTH_URL = `https://github.com/login/oauth/authorize?${GITHUB_PARAMS}`;
+import isAuthenticated from "../utils/isAuthenticated";
+const _ = require("lodash");
 
 if (process.env.NODE_ENV !== "test") {
   Modal.setAppElement("#root");
@@ -27,7 +23,8 @@ class AddDeckModal extends Component {
     profile: { email: "", password: "" },
     errors: { email: undefined, form: undefined },
     isLoading: true,
-    decks: []
+    decks: [],
+    decksInCollection: []
   };
 
 
@@ -40,7 +37,33 @@ class AddDeckModal extends Component {
     );
   };
 
+  toggleDeck = () => {
+
+  };
+
+  onToggleCollection = (event, deck) => {
+    event.preventDefault();
+    if (!isAuthenticated()) {
+    } else {
+      const isInCollection = this.isInCollection(deck._id);
+      api
+        .toggleDeckInCollection({ collectionId: this.props.collection._id, deck: deck._id, isInCollection })
+        .then(response => {
+          window.location.reload();
+        })
+        .catch(this.handleError);
+    }
+  };
+
+  isInCollection = id => !!this.state.decksInCollection.find(el => el === id);
+
   componentDidMount() {
+    let decks = this.props.collection.decks || [];
+    let _decks = [];
+    for (var i = 0; i < decks.length; i++) {
+      _decks.push(decks[i]._id);
+    }
+    this.setState({ decksInCollection: _decks });
     this.fetchDecks();
   }
 
@@ -77,7 +100,7 @@ class AddDeckModal extends Component {
   render() {
     const { profile = {}, errors = {}, isLoading, decks } = this.state;
     const { isOpen, onClose } = this.props;
-    console.log('decks, ', decks);
+    console.log('this.state.decksInCollection, ', this.state.decksInCollection);
 
     return (
       <Modal
@@ -101,8 +124,6 @@ class AddDeckModal extends Component {
           <div className="text-center mx-auto">
             <h5 className="mb-1">Add Decks to Collection</h5>
             <p className="text-secondary font-weight-light">
-              {/*Sign in to save your progress and track your favorite decks across
-              devices.*/}
             </p>
           </div>
 
@@ -123,7 +144,8 @@ class AddDeckModal extends Component {
                   isPinned={false}
                   onTogglePin={() => {}}
                   newCollectionPage={true}
-                  isInCollection={false}
+                  isInCollection={this.isInCollection(deck._id)}
+                  onToggleCollection={this.onToggleCollection}
                 />
               ))}
             </div>

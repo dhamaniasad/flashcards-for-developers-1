@@ -13,5 +13,9 @@ module.exports = {
   	description: Joi.string().required(),
   	emoji: Joi.string().required(),
   	color: Joi.string().length(6).hex()
+  },
+  toggleDeckInCollection: {
+    deck: Joi.number().required(),
+    isInCollection: Joi.boolean().required()
   }
 };

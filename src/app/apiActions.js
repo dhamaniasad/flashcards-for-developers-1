@@ -41,6 +41,10 @@ export const fetchCollections = searchStr => {
   return authAxios.get(`/api/collections${params}`);
 };
 
+export const toggleDeckInCollection = ({ collectionId, deck, isInCollection }) => {
+  return authAxios.put(`/api/collections/${collectionId}/decks`, { deck, isInCollection });
+};
+
 export const createCollection = ({ name, description, emoji, color }) => {
   return authAxios.post("/api/collections", { name, description, emoji, color });
 };

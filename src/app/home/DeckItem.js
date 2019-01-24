@@ -60,7 +60,7 @@ class DeckItem extends Component {
         className={cx("pin-btn badge align-items-center p-0 coll-btn", {
           "coll-btn-remove": this.props.isInCollection
         })}
-        onClick={e => this.props.onTogglePin(e, this.props.deck)}
+        onClick={e => this.props.onToggleCollection(e, this.props.deck)}
       >
         <Octicon
           name="plus"

@@ -26,14 +26,13 @@ class Collections extends Component {
   };
 
   componentWillMount() {
-    this.context.mixpanel.track("Specific Collections Page.");
     const { params } = this.props.match;
 
     if (this.isPinnedDecksPage()) {
       this.fetchPinnedDecksCollection();
     } else {
       this.fetchPinnedDecks();
-      this.fetchCollection(params.collectionId);
+      this.fetchCollection(parseInt(params.collectionId));
     }
 
     this.fetchStudyProgress();
@@ -152,7 +151,7 @@ class Collections extends Component {
 
     return (
       <div>
-      <AddDeckModal isOpen={this.state.showModal} onClose={this.onCloseModal} />
+      {(collection && collection._id) && <AddDeckModal isOpen={this.state.showModal} onClose={this.onCloseModal} collection={collection} />}
         <div
           className="collection-header py-4"
           style={{ background: "#f9f9f9", borderBottom: "1px solid #e8e8e8" }}
@@ -189,10 +188,10 @@ class Collections extends Component {
               {decks.map(deck => (
                 <DeckItem
                   deck={deck}
-                  deckProgress={this.getDeckProgress(deck.id)}
-                  key={deck.id}
+                  deckProgress={this.getDeckProgress(deck._id)}
+                  key={deck._id}
                   location={location}
-                  isPinned={this.isPinned(deck.id)}
+                  isPinned={this.isPinned(deck._id)}
                   onTogglePin={this.onTogglePin}
                 />
               ))}
@@ -202,10 +201,11 @@ class Collections extends Component {
           )}
           <div className="w-100 text-center my-5 pb-5" style={{ minHeight: "30vh" }}>
               <div className="h4" style={{ opacity: 0.8 }}>
-                This collection is currently empty.
+                {decks.length < 1 ? "This collection is currently empty"
+                 : "Want to add more decks to this collection?"}
               </div>
-              <div className="mb-4">Let us know what topics you want to see.</div>
-              <div className="row d-flex justify-content-center mt-2 mb-5">
+              {decks.length > 0 ? "" : (<div className="mb-4">Want to add decks to this collection?</div>)}
+              <div className="row d-flex justify-content-center mt-4 mb-5">
                 <a
                   className="text-dark d-flex align-items-center btn btn-outline-dark px-4"
                   href="#"
@@ -213,7 +213,7 @@ class Collections extends Component {
                   style={{ borderRadius: "999px" }}
                 >
                   <Octicon className="d-flex mr-2" name="plus" />
-                  <span>Add a deck</span>
+                  <span>{decks.length < 1 ? "Add a deck" : "Manage decks"}</span>
                 </a>
               </div>
             </div>

@@ -29,6 +29,7 @@ router.delete("/api/decks/:deckId", isAuthenticated, DecksController.deleteDeck)
 router.get("/api/collections", CollectionsController.getCollections);
 router.post("/api/collections", isAuthenticated, CollectionsController.createCollection);
 router.get("/api/collections/:collectionId", CollectionsController.getCollection);
+router.put("/api/collections/:collectionId/decks", CollectionsController.toggleDeckInCollection);
 
 // Cards related endpoints
 router.get("/api/cards", getUser, CardsController.getCards);
