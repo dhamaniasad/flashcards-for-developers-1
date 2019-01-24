@@ -98,6 +98,8 @@ Builds the React app for production and runs the server so the the app is ready 
 
 You can sync the database with content from CSV files. The sample syntax for the CSV files is shown in the `data_sample` folder.
 
+### Note: You will need to run the app once and create an initial user before you will be able to import data due to foreign key constraints
+
 **Usage:**
 
 First put your CSV files into the `data` folder. The files will be ignored by Git.

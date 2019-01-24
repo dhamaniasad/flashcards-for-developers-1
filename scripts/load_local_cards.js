@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 const Card = require("../server/models/Card");
 const Deck = require("../server/models/Deck");
 const User = require("../server/models/User");
@@ -9,7 +7,6 @@ const fs = require("fs");
 const _ = require("lodash");
 
 require("../database/index")();
-mongoose.set("useFindAndModify", false);
 
 // Load collections data from CSV file
 const fetchCards = async () => {
