@@ -258,7 +258,9 @@ class StudySection extends Component {
     if (this.isSelfGraded()) {
       return [SELF_GRADE_CORRECT, SELF_GRADE_INCORRECT];
     } else if (this.isMultiple()) {
-      return [...new Set(cards.map(el => el.back))].map((el, i) => ({ id: i, back: el }));
+      let options = [...new Set(cards.map(el => el.back))].map((el, i) => ({ id: i, back: el })).slice(0, 3);
+      options = chance.shuffle(new Set([{ id: currentCard._id, back: currentCard.back }, ...options ]));
+      return options;
     } else {
       const numOptions = Math.min(3, cards.length);
       const shuffledCards = chance.shuffle(cards).slice(0, numOptions);
