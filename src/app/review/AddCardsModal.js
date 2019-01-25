@@ -69,6 +69,7 @@ class AddCardsModal extends Component {
                 onChange={this.onChange}
                 style={{ height: "92px", fontSize: ".8em" }}
                 value={front}
+                required={true}
               />
             </div>
             <div className="form-group mb-2">
@@ -81,6 +82,7 @@ class AddCardsModal extends Component {
                 onChange={this.onChange}
                 style={{ height: "92px", fontSize: ".8em" }}
                 value={back}
+                required={true}
               />
             </div>
           </div>
