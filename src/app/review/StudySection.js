@@ -258,9 +258,13 @@ class StudySection extends Component {
     if (this.isSelfGraded()) {
       return [SELF_GRADE_CORRECT, SELF_GRADE_INCORRECT];
     } else if (this.isMultiple()) {
-      let options = [...new Set(cards.map(el => el.back))].map((el, i) => ({ id: i, back: el })).slice(0, 3);
-      options = chance.shuffle(new Set([{ id: currentCard._id, back: currentCard.back }, ...options ]));
-      return options;
+      const numOptions = Math.min(3, cards.length);
+      const shuffledCards = chance.shuffle(cards).slice(0, numOptions);
+      const uniqueCards = [...new Set([ ...shuffledCards, currentCard ])];
+      console.log(uniqueCards)
+      // let options = chance.shuffle([...new Set(cards.map(el => el.back))].map((el, i) => ({ id: i, back: el })).slice(0, 4));
+      // return options;
+      return chance.shuffle(uniqueCards);
     } else {
       const numOptions = Math.min(3, cards.length);
       const shuffledCards = chance.shuffle(cards).slice(0, numOptions);
@@ -287,7 +291,7 @@ class StudySection extends Component {
     (index || this.state.index) > this.state.cards.length - 1 &&
     this.isStageFinished();
   isSelected = option =>
-    option.id ? this.state.selected.id === option.id : this.state.selected === option;
+    option._id ? this.state.selected._id === option._id : this.state.selected === option;
 
   // TODO: MOVE TO OBJECT
   getDeckType = () => (this.isSelfGraded() ? "Self graded" : "Multiple choice");
@@ -387,7 +391,7 @@ class StudySection extends Component {
                   <div className="col-12 col-lg-6 d-flex flex-column align-items-stretch px-1 pb-1">
                     {options.map((option, key) => (
                       <div
-                        key={option.id || option}
+                        key={option._id || option}
                         onClick={() => this.onSelectAnswer(option)}
                         className={cx(
                           "flashcard-option border rounded d-flex align-items-start p-3 w-100",
