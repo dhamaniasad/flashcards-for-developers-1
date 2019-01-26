@@ -24,7 +24,7 @@ class Footer extends React.Component {
       <div className="bg-dark">
     <div className="container container--full d-flex flex-column flex-md-row align-items-center justify-content-between p-4">
       <div className="text-secondary d-flex flex-column">
-        <small className="font-weight-medium">Flashcards For Teachers © 2019</small>
+        <small className="font-weight-medium">Flashcards For Students © 2019</small>
         <small>{this.state.cards} cards studied {this.state.times} times</small>
       </div>
 
