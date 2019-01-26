@@ -67,7 +67,7 @@ class DecksNew extends Component {
                     type="text"
                     name="name"
                     className="form-control"
-                    placeholder={`e.g. "For JavaScript Developers"`}
+                    placeholder={`e.g. "For English students"`}
                     onChange={this.onChange}
                     value={name}
                   />
@@ -80,7 +80,7 @@ class DecksNew extends Component {
                     type="text"
                     name="description"
                     className="form-control"
-                    placeholder={`e.g. "Topics for developers who focus on interactive web applications."`}
+                    placeholder={`e.g. "Topics for students learning English."`}
                     onChange={this.onChange}
                     value={description}
                   />

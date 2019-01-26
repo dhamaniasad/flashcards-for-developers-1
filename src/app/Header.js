@@ -115,7 +115,7 @@ class Header extends Component {
                   width={18}
                   height={18}
                 />
-                <span className="d-none d-sm-inline">Flashcards for Developers</span>
+                <span className="d-none d-sm-inline">Flashcards for Students</span>
               </Link>
             )}
             {isHomePage && (

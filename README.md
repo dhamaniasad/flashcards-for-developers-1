@@ -1,4 +1,4 @@
-# Flashcards For Developers
+# Flashcards For Students
 
 > "That's how knowledge works. It builds up, like compound interest." - Warren Buffett
 

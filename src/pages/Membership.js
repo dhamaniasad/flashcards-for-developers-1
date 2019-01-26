@@ -34,7 +34,7 @@ class Membership extends React.Component {
           <div className="container container--full py-5">
             <div className="d-flex flex-column flex-md-row justify-content-between align-items-center my-4">
               <div style={{ fontSize: "28px" }}>
-                <h1 className="font-weight-bold m-0">Level Up Your Developer Career</h1>
+                <h1 className="font-weight-bold m-0">Level Up Your English Knowledge</h1>
                 <p
                   className="text-muted font-weight-light"
                   style={{ fontSize: "18px", lineHeight: "1.2em" }}

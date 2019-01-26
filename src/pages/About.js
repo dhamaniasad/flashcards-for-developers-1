@@ -13,12 +13,12 @@ const About = () => (
   <div>
     <div className="container container--narrow py-5">
       <div className="mb-5 py-4">
-        <h5 className="font-weight-bold text-uppercase">Flashcards for Developers</h5>
+        <h5 className="font-weight-bold text-uppercase">Flashcards for Students</h5>
         <p className="text-dark font-weight-medium">
-          Flashcards for Developers is a learning tool for developers by developers. It is a place
+          Flashcards for Students is a learning tool for students. It is a place
           for those who want to learn better, grow their expertise, and keep those skills sharp.
         </p>
-        <a href="mailto:hello@flashcardsfordevelopers.com">Have a question? Drop us a line.</a>
+        {/*<a href="mailto:hello@flashcardsfordevelopers.com">Have a question? Drop us a line.</a>*/}
       </div>
 
       <div className="my-3 pb-2">
@@ -27,7 +27,7 @@ const About = () => (
           Flashcards are bite-sized concepts you can study anywhere. They are designed so you can
           fit them in anywhere to fill time. You can easily study them at the grocery store, on the
           bus, or in killing time at home. They are designed so you quickly improve your
-          understanding of programming concepts.
+          understanding of English concepts.
         </p>
       </div>
 
@@ -43,7 +43,7 @@ const About = () => (
       <div className="my-3 pb-2">
         <h6 className="font-weight-bold text-uppercase">Study Smarter, Not Longer</h6>
         <p className="text-dark">
-          Flashcards for Developers uses a straight-forward scheduling system to reduce the amount
+          Flashcards for Students uses a straight-forward scheduling system to reduce the amount
           of studying you do over time. This technique, called spaced repetition, can reduce the
           amount of studying you do by half. Using our system, you will learn more with less effort.
         </p>
@@ -131,7 +131,7 @@ const About = () => (
                 </div>
               </a>
             </div>
-            <div
+{/*            <div
               className="text-white font-weight-light mb-4"
               style={{ opacity: 0.85, maxWidth: "500px" }}
             >
@@ -144,7 +144,7 @@ const About = () => (
                 Drop us a line or just say hi
               </a>{" "}
               👋.
-            </div>
+            </div>*/}
           </div>
           <div className="col-lg-4 py-3">
             <h6 className="text-uppercase font-weight-medium mb-3">Stats</h6>

@@ -121,7 +121,7 @@ class LoginModal extends Component {
         </button>
         <div className="py-5 px-4 my-2 mx-auto" style={{ maxWidth: "400px" }}>
           <div className="text-center mx-auto">
-            <h5 className="mb-1">Login to Flashcards for Developers</h5>
+            <h5 className="mb-1">Login to Flashcards for Students</h5>
             <p className="text-secondary font-weight-light">
               Sign in to save your progress and track your favorite decks across
               devices.

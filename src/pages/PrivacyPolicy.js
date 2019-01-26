@@ -4,9 +4,9 @@ const PrivacyPolicy = () => (
   <div className="container container--narrow py-5">
     <h2>Privacy Policy</h2>
     <p>
-      Your privacy is important to us. It is Flashcards for Developers' policy to respect your
+      Your privacy is important to us. It is Flashcards for Students' policy to respect your
       privacy regarding any information we may collect from you across our website,{" "}
-      <a href="http://www.flashcardsfordevelopers.com">www.flashcardsfordevelopers.com</a>, and
+      <a href="#">#</a>, and
       other sites we own and operate.
     </p>
     <p>

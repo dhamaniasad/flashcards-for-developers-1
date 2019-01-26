@@ -28,7 +28,7 @@ class Decks extends Component {
   };
 
   componentWillMount() {
-    document.title = "Flashcards for Developers";
+    document.title = "Flashcards for Students";
     this.context.mixpanel.track("Home page.");
     this.fetchPinnedDecks();
 
@@ -139,7 +139,7 @@ class Decks extends Component {
       return (
         <div className="container p-4 my-5">
           <div className="mb-5">
-            <h1 className="m-0">Flashcards for Developers</h1>
+            <h1 className="m-0">Flashcards for Students</h1>
             <p>A curated list of flashcards to boost your professional skills</p>
           </div>
           <h1 className="text-secondary">Loading decks...</h1>
@@ -151,7 +151,7 @@ class Decks extends Component {
       return (
         <div className="container p-4 my-5">
           <div className="mb-5">
-            <h1 className="m-0">Flashcards for Developers</h1>
+            <h1 className="m-0">Flashcards for Students</h1>
             <p>A curated list of flashcards to boost your professional skills</p>
           </div>
           <div className="text-center mt-3">
@@ -169,7 +169,7 @@ class Decks extends Component {
           <div className="container container--full px-4 my-2">
             <div className="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center">
               <div className="text-shadow home-header py-2">
-                <h1 className="m-0">Flashcards for Developers</h1>
+                <h1 className="m-0">Flashcards for Students</h1>
                 <p className="m-0">
                   A curated list of flashcards to boost your professional skills
                 </p>

@@ -93,8 +93,8 @@ class Review extends Component {
       ({ data }) => {
         // TODO: Set the name on the server-side
         document.title = data.name
-          ? `${data.name} | Flashcards for Developers`
-          : "Flashcards for Developers";
+          ? `${data.name} | Flashcards for Students`
+          : "Flashcards for Students";
         this.setState({ deck: data, isDeckLoading: false }, () => this.fetchCards(data._id));
       },
       error => this.setState({ isError: true, isDeckLoading: false }),
