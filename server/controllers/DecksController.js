@@ -59,7 +59,7 @@ module.exports.getDeck = async (req, res, next) => {
     let deck = await Deck.findOne({ where: {_id: deckId, status: { $ne: "private" } } });
 
     if (!deck) {
-      deck = await Deck.findOne({ where: { _id: deckId, author: req.user, status: "private" } });
+      deck = await Deck.findOne({ where: { _id: deckId, status: "private" } });
     }
 
     let cards = await deck.getCards();
