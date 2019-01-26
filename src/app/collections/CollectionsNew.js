@@ -7,7 +7,7 @@ import isProMember from "../utils/isProMember";
 import { SliderPicker } from 'react-color';
 
 class DecksNew extends Component {
-  state = { name: "", description: "", deck: {}, isRedirect: false, emoji: "", color: "#b3cee6" };
+  state = { name: "", description: "", deck: {}, isRedirect: false, emoji: "👶🏻", color: "#b3cee6" };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -92,10 +92,11 @@ class DecksNew extends Component {
                   </label>
                   <p>
                     <span className="text-muted">
-                      <a href="https://emojipedia.org/unicode-10.0/" target="_blank">
-                        You can also copy emojis from this link
-                      </a>
+                      You can copy one of the emojis from below and paste it into the emoji field
                     </span>
+                  </p>
+                  <p>
+                    👶🏻 👦🏻 👧🏻 👨🏻 👩🏻 👱🏻‍♀️ 👱🏻 👴🏻 👵🏻 
                   </p>
                   <input
                     type="text"
